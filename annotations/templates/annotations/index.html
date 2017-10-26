@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Annotation tool</title>
+
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+
+    <body id="page-top">
+
+        <header class="bg-primary text-white">
+            <div class="container text-center">
+                <h1>Annotation tool</h1>
+                <p class="lead">Annotate your morphologies</p>
+            </div>
+        </header>
+        <!--
+             <section id="about">
+             <div class="container">
+             <div class="row">
+             <div class="col-lg-8 mx-auto">
+             <h2>About this page</h2>
+             <p class="lead">Drag & drop your file here:</p>
+             <div id="dropZone" style="width: 100px; height: 100px; background-color: red"></div>
+             </div>
+             </div>
+             </div>
+             </section>
+           -->
+        <div class="container" style="margin-top: 20px;">
+            <div class="row">
+                <form method="post" enctype="multipart/form-data" action="/annotations/api" class="form-inline" role="form">
+                    {% csrf_token %}
+                    <input type="file" name="myfile" >
+                    <button type="submit" class="btn btn-primary">Annotate !</button>
+                </form>
+            </div>
+        </div>
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+            </div>
+        </footer>
+
+        <!-- <script>
+             var dropZone = document.getElementById('dropZone');
+
+             // Optional.   Show the copy icon when dragging over.  Seems to only work for chrome.
+             dropZone.addEventListener('dragover', function(e) {
+             e.stopPropagation();
+             e.preventDefault();
+             e.dataTransfer.dropEffect = 'copy';
+             });
+
+             // Get file data on drop
+             dropZone.addEventListener('drop', function(e) {
+             e.stopPropagation();
+             e.preventDefault();
+             var files = e.dataTransfer.files; // Array of all files
+
+             console.log('dropped: '+files[0]);
+             });
+             </script> -->
+    </body>
+
+</html>
