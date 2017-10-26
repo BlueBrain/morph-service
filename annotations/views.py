@@ -3,7 +3,6 @@ import tempfile
 
 import neurom
 from neurom.apps.annotate import annotate
-from neurom.io.asc_writer import write
 
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
