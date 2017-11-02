@@ -11,9 +11,19 @@
         <title>Annotation tool</title>
 
 
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+         #drag-and-drop-box {
+             width: 550px;
+             height: 240px;
+             padding: 10px;
+             border: 1px solid #aaaaaa;
+         }
+
+        </style>
     </head>
 
     <body id="page-top">
@@ -24,53 +34,56 @@
                 <p class="lead">Annotate your morphologies</p>
             </div>
         </header>
-        <!--
-             <section id="about">
-             <div class="container">
-             <div class="row">
-             <div class="col-lg-8 mx-auto">
-             <h2>About this page</h2>
-             <p class="lead">Drag & drop your file here:</p>
-             <div id="dropZone" style="width: 100px; height: 100px; background-color: red"></div>
-             </div>
-             </div>
-             </div>
-             </section>
-           -->
         <div class="container" style="margin-top: 20px;">
+            <div class="row">
+                <h3>Choose a Neurolucida file and press "Annotate!" to download a copy of this file with the annotations appended at the end</h3>
+                There are 4 types of supported annotations:
+                <ul>
+                    <li>Z-jump</li>
+                    <li>Narrow start</li>
+                    <li>Fat end</li>
+                    <li>Dangling branch</li>
+                </ul>
+
+            </div>
             <div class="row">
                 <form method="post" enctype="multipart/form-data" action="/annotations/api" class="form-inline" role="form">
                     {% csrf_token %}
-                    <input type="file" name="myfile" >
-                    <button type="submit" class="btn btn-primary">Annotate !</button>
+                    <div class="form-group">
+                        <label for="drag-and-drop-box" style="margin-top:10px">Drop the file in this box (works only for Google Chrome so far):</label>
+                        <div id="drag-and-drop-box"></div>
+                        <label for="fileControl" style="margin-top:20px">Or browse manually:</label>
+                        <input type="file"  name="myfile" class="form-control-file" id="fileControl">
+                        <button type="submit"  style="margin-top:50px" class="btn btn-primary btn-lg">Annotate !</button>
+                    </div>
                 </form>
             </div>
         </div>
         <footer class="py-5 bg-dark">
             <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+                <p style="margin-top:100px" class="m-0 text-center text-white">For more information about the annotation computation see: <a href="https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py">https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py</a></p>
             </div>
         </footer>
 
-        <!-- <script>
-             var dropZone = document.getElementById('dropZone');
+        <script>
+         var dropZone = document.getElementById('drag-and-drop-box');
 
-             // Optional.   Show the copy icon when dragging over.  Seems to only work for chrome.
-             dropZone.addEventListener('dragover', function(e) {
+         // Optional.   Show the copy icon when dragging over.  Seems to only work for chrome.
+         dropZone.addEventListener('dragover', function(e) {
              e.stopPropagation();
              e.preventDefault();
              e.dataTransfer.dropEffect = 'copy';
-             });
+         });
 
-             // Get file data on drop
-             dropZone.addEventListener('drop', function(e) {
+         // Get file data on drop
+         dropZone.addEventListener('drop', function(e) {
              e.stopPropagation();
              e.preventDefault();
              var files = e.dataTransfer.files; // Array of all files
 
              console.log('dropped: '+files[0]);
-             });
-             </script> -->
+       	     document.querySelector('form').fileControl.files = files;
+         });
+        </script>
     </body>
-
 </html>

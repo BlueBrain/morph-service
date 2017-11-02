@@ -15,7 +15,7 @@ def index(request):
 
 def api(request):
     if request.method == 'POST' and request.FILES:
-        f = next(request.FILES.values())
+        f = next(iter(request.FILES.values()))
         tmp = tempfile.gettempdir()
         fs = FileSystemStorage(tmp)
         basename = f.name.split('.')[0]
