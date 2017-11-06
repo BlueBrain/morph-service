@@ -2,20 +2,15 @@ FROM python:3.6
 
 ENV DJANGO_ENV=prod
 
-RUN mkdir /code
-RUN apt-get update && \
-    apt-get install -y && \
-    pip3 install uwsgi
+RUN mkdir -p /opt/morph-service
+RUN pip3 install uwsgi
 
+WORKDIR /opt/morph-service
 
-WORKDIR /code
-
-ADD requirements.txt /code/
-
-RUN pip3 install -r requirements.txt
-
-ADD . /code/
+ADD uwsgi.ini ./
+COPY dist/* dist/
+RUN pip3 install --no-cache-dir $(ls -t $PWD/dist/*.* | head -n 1)
 
 EXPOSE 8000
 
-CMD ["uwsgi", "--ini", "/code/uwsgi.ini"]
+CMD ["uwsgi", "--ini", "/opt/morph-service/uwsgi.ini"]

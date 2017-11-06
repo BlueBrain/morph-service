@@ -14,7 +14,7 @@ class SimpleTest(unittest.TestCase):
 
     def test_details(self):
         # Issue a GET request.
-        with open('annotations/sample.asc') as fp:
+        with open('morph_service/annotations/sample.asc') as fp:
             response = self.client.post('/annotations/api', {'attachment': fp})
 
         # Check that the response is 200 OK.
@@ -31,6 +31,6 @@ class SimpleTest(unittest.TestCase):
         self.assertEqual('\n'.join(response.content.decode('utf-8').split('\n')[-7:]),
                          annotation)
 
-        with open('annotations/sample.swc') as fp:
+        with open('morph_service/annotations/sample.swc') as fp:
             response = self.client.post('/annotations/api', {'attachment': fp})
         self.assertEqual(response.status_code, 400)

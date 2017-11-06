@@ -1,3 +1,0 @@
-Django==1.11.6
-livereload==2.5.1
-neurom
