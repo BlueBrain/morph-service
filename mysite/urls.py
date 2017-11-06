@@ -19,6 +19,7 @@ from . import views
 
 
 urlpatterns = [
+    url(r'', include('annotations.urls')),
     url(r'^annotations/', include('annotations.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^status$', views.status, name='status'),
