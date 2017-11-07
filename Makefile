@@ -40,7 +40,7 @@ ci_dep.txt: virtualenv
 local_test: build
 	docker run -it --rm -p 8000:8000 morph-service:$(VERSION)
 
-build: pypi-sdist
+build:
 	@echo "building docker image version:$(VERSION)"
 	docker build -t morph-service:$(VERSION) \
 		--build-arg=http_proxy=http://bbpproxy.epfl.ch:80/ \
