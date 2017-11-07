@@ -35,11 +35,6 @@ test_morph_service/annotations:
 ci_dep.txt: virtualenv
 	touch $@
 
-$(PLATFORM_VENV)/bin/activate:
-	$(CHECK_PYTHON_PATH)
-	virtualenv --no-site-packages -p python3 $(PLATFORM_VENV)
-	touch $(PLATFORM_VENV)/bin/activate
-
 ##### Docker ######
 
 local_test: build
