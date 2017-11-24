@@ -1,4 +1,5 @@
 '''The definition of each view'''
+import urllib
 import os
 import tempfile
 
@@ -29,7 +30,7 @@ def api(request):
                                            '<h2>The file must have the "asc" extension']),
                                 status=400)
 
-        uploaded_file_url = os.path.join(tmp, fs.url(filename))
+        uploaded_file_url = os.path.join(tmp, urllib.parse.unquote(fs.url(filename)))
         try:
             neuron = neurom.load_neuron(uploaded_file_url)
         except Exception as e:  # pylint: disable=broad-except

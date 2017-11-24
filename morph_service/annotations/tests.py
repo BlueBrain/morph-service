@@ -33,4 +33,4 @@ class SimpleTest(unittest.TestCase):
 
         with open('morph_service/annotations/sample.swc') as fp:
             response = self.client.post('/annotations/api', {'attachment': fp})
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 400, 'SWC files should return 400')
