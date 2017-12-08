@@ -17,12 +17,19 @@
 
         <style>
          #drag-and-drop-box {
-             width: 550px;
+             width: 450px;
              height: 240px;
              padding: 10px;
              border: 1px solid #aaaaaa;
          }
+         #summary-div ul{
+             font-size: 200%;
+             color: blue;
+         }
 
+         #summary-div li{
+             font-size: 100%;
+         }
         </style>
     </head>
 
@@ -47,17 +54,25 @@
 
             </div>
             <div class="row">
-                <form method="post" enctype="multipart/form-data" action="/annotations/api" class="form-inline" role="form">
+                <div class="col-md-6">
+                    <form id="submission-form" method="post" enctype="multipart/form-data" action="/annotations/api" class="form-inline" role="form" >
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="drag-and-drop-box" style="margin-top:10px">Drop the file in this box (works only for Google Chrome so far):</label>
                         <div id="drag-and-drop-box"></div>
                         <label for="fileControl" style="margin-top:20px">Or browse manually:</label>
-                        <input type="file"  name="myfile" class="form-control-file" id="fileControl">
-                        <button type="submit"  style="margin-top:50px" class="btn btn-primary btn-lg">Annotate !</button>
+                        <input id="fileControl" type="file"  name="myfile" class="form-control-file" >
+                        <button id="annotate-btn" type="submit" style="margin-top:50px" class="btn btn-primary btn-lg">Annotate !</button>
                     </div>
-                </form>
+
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div id="summary-div"></div>
+                </div>
             </div>
+
+
         </div>
         <footer class="py-5 bg-dark">
             <div class="container">
@@ -67,6 +82,46 @@
 
         <script>
          var dropZone = document.getElementById('drag-and-drop-box');
+         var input = document.getElementById('fileControl');
+
+         input.onchange = function () {
+             summary();
+         };
+
+         window.onload = function() {
+             summary();
+         }
+         $.ajaxSetup({
+             beforeSend: function(xhr, settings) {
+                 function getCookie(name) {
+                     var cookieValue = null;
+                     if (document.cookie && document.cookie != '') {
+                         var cookies = document.cookie.split(';');
+                         for (var i = 0; i < cookies.length; i++) {
+                             var cookie = jQuery.trim(cookies[i]);
+                             // Does this cookie string begin with the name we want?
+                             if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                 break;
+                             }
+                         }
+                     }
+                     return cookieValue;
+                 }
+                 if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                     // Only send the token to relative URLs i.e. locally.
+                     xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                 }
+             }
+         });
+
+         function summary() {
+             $.ajax({method: 'POST', url: "/annotations/summary",    cache: false,
+                     contentType: false,
+                     processData: false,
+                     data: new FormData($("#submission-form")[0]),
+                     success: function(data){document.getElementById('summary-div').innerHTML = data;}});
+         }
 
          // Optional.   Show the copy icon when dragging over.  Seems to only work for chrome.
          dropZone.addEventListener('dragover', function(e) {
@@ -75,15 +130,18 @@
              e.dataTransfer.dropEffect = 'copy';
          });
 
+
          // Get file data on drop
          dropZone.addEventListener('drop', function(e) {
              e.stopPropagation();
              e.preventDefault();
              var files = e.dataTransfer.files; // Array of all files
 
-             console.log('dropped: '+files[0]);
        	     document.querySelector('form').fileControl.files = files;
+             summary()
+
          });
+
         </script>
     </body>
 </html>
