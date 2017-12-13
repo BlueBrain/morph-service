@@ -1,26 +1,31 @@
-import os
+'''Contains annotation test'''
+import json
 import unittest
 from io import StringIO
-from tempfile import NamedTemporaryFile
 
-from django.test import Client, TestCase
+from django.test import Client
+
 from neurom.io import load_neuron
 
 
 class SimpleTest(unittest.TestCase):
+    '''Annotation test'''
+
     def setUp(self):
         # Every test needs a client.
         self.client = Client()
 
     def test_details(self):
-        # Issue a GET request.
-        with open('morph_service/annotations/sample.asc') as fp:
-            response = self.client.post('/annotations/api', {'attachment': fp})
+        '''Issue a GET request.'''
+        with open('morph_service/annotations/sample.asc') as inputf:
+            response = self.client.post('/annotations/api', {'attachment': inputf})
 
         # Check that the response is 200 OK.
         self.assertEqual(response.status_code, 200)
-        n = load_neuron(StringIO(response.content.decode('utf-8')), reader='asc')
-        self.assertEqual(len(n.neurites), 2)
+        data = json.loads(response.content.decode('utf-8'))
+        file_content = ''.join(data['file'])
+        neuron = load_neuron(StringIO(file_content), reader='asc')
+        self.assertEqual(len(neuron.neurites), 2)
         annotation = """(Circle2   ; MUK_ANNOTATION
     (Color Green)   ; MUK_ANNOTATION
     (Name "zjump")   ; MUK_ANNOTATION
@@ -28,9 +33,9 @@ class SimpleTest(unittest.TestCase):
     (6.0 13.0 50.0 0.50)   ; MUK_ANNOTATION
 )   ; MUK_ANNOTATION
 """
-        self.assertEqual('\n'.join(response.content.decode('utf-8').split('\n')[-7:]),
+        self.assertEqual('\n'.join(file_content.split('\n')[-7:]),
                          annotation)
 
-        with open('morph_service/annotations/sample.swc') as fp:
-            response = self.client.post('/annotations/api', {'attachment': fp})
+        with open('morph_service/annotations/sample.swc') as outf:
+            response = self.client.post('/annotations/api', {'attachment': outf})
         self.assertEqual(response.status_code, 400, 'SWC files should return 400')
