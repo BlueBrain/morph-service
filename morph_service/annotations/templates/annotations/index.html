@@ -83,6 +83,7 @@
         <script>
          var dropZone = document.getElementById('drag-and-drop-box');
          var input = document.getElementById('fileControl');
+         var timeout = 120000; // 2 minutes
 
          input.onchange = function () {
              summary();
@@ -120,6 +121,7 @@
                      contentType: false,
                      processData: false,
                      data: new FormData($("#submission-form")[0]),
+                     timeout: timeout,
                      success: function(data){document.getElementById('summary-div').innerHTML = data;}});
          }
 
