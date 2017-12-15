@@ -273,8 +273,8 @@
                   processData: false,
                   data: formData,
                   success: function(data){console.log("sucess"); handleComplete(file);},
-                  error: function(){
-                      alert("Something went wrong for file: "+file.name);
+                  error: function(data){
+                      alert("Something went wrong for file: "+file.name+"\n"+data.responseJSON.error);
                       handleComplete(file);
                   },
                   success: function(data){

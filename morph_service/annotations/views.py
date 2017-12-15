@@ -5,7 +5,7 @@ import urllib
 from functools import partial
 
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 
 import neurom
@@ -50,11 +50,12 @@ def api(request):
 
             neuron = neurom.load_neuron(uploaded_file_url)
         except UnrecognizedMorphologyFormat:
-            return HttpResponse('\n'.join(['<h1>Only the NeuroLucida format is supported</h1>'
-                                           '<h2>The file must have the "asc" extension']),
+            return JsonResponse({'error': '\n'.join(['Only the NeuroLucida format is supported',
+                                                     'The file must have the "asc" extension'])},
                                 status=400)
         except Exception as exception:  # pylint: disable=broad-except
-            return HttpResponse('Error while loading the neuron.\n{}'.format(exception))
+            return JsonResponse({'error': 'Error while loading the neuron.\n{}'.format(
+                exception)}, status=400)
 
         results = [checker(neuron) for checker in CHECKERS]
         annotations = annotate(results, CHECKERS.values())
@@ -68,6 +69,7 @@ def api(request):
                                              for result, setting in zip(results, CHECKERS.values())
                                              if result.info},
                                  'file': outf.readlines()})
+        return JsonResponse({'status': 'ok'})
 
 
 class UnrecognizedMorphologyFormat(Exception):
