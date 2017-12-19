@@ -4,15 +4,15 @@ import tempfile
 import urllib
 from functools import partial
 
-from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse
-from django.shortcuts import render
-
 import neurom
 from neurom.apps.annotate import annotate
 from neurom.check.neuron_checks import (has_no_dangling_branch,
                                         has_no_fat_ends, has_no_jumps,
                                         has_no_narrow_start)
+
+from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
+from django.shortcuts import render
 
 CHECKERS = {has_no_fat_ends: {"name": "fat end",
                               "label": "Circle3",
@@ -68,7 +68,7 @@ def api(request):
             return JsonResponse({'summary': {setting['name']: len(result.info)
                                              for result, setting in zip(results, CHECKERS.values())
                                              if result.info},
-                                 'file': outf.readlines()})
+                                 'file': ''.join(outf.readlines())})
         return JsonResponse({'status': 'ok'})
 
 

@@ -14,8 +14,8 @@
         {% load static %}
 
         <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.js"></script>
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script src="{% static 'jszip.min.js' %}"></script>
         <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
         <style>
@@ -212,88 +212,88 @@
                  if(size == 1){
                      offerDownload(annotations[f].file, f.replace(".asc", '-annotated.asc'));
                  }else{
-                     zip.file(f.replace(".asc", '-annotated.asc'), annotations[f].file, {base64: true});
+                     zip.file(f.replace(".asc", '-annotated.asc'), annotations[f].file);
                  }
              }
 
-             if( size > 1){
-                 zip.generateAsync({type:"base64"}).then(function (base64) {
-                     window.location = "data:application/zip;base64," + base64;
-                     resetAllFields();
-                 }, function (err) {
-                     alert(err);
-                 });
-             }
+                         if( size > 1){
+                             zip.generateAsync({type:"base64"}).then(function (base64) {
+                                 window.location = "data:application/zip;base64," + base64;
+                                 resetAllFields();
+                             }, function (err) {
+                                 alert(err);
+                             });
+                         }
 
          }
 
-         function resetAllFields(){
-             annotations = {};
-             input.value = "";
-             processedFiles = new Set();
-             updateSummary();
-         }
+                         function resetAllFields(){
+                             annotations = {};
+                             input.value = "";
+                             processedFiles = new Set();
+                             updateSummary();
+                         }
 
 
-         function processFiles(filelist) {
-	           if (!filelist || !filelist.length || list.length) return;
-	           totalSize = 0;
-	           totalProgress = 0;
-	           for (var i = 0; i < filelist.length && i < 5; i++) {
-                 if(!processedFiles.has(filelist[i].name)){
-	                   list.push(filelist[i]);
-	                   totalSize += filelist[i].size;
-                 }
-	           }
-	           uploadNext();
-	       }
+                         function processFiles(filelist) {
+	                           if (!filelist || !filelist.length || list.length) return;
+	                           totalSize = 0;
+	                           totalProgress = 0;
+	                           for (var i = 0; i < filelist.length && i < 5; i++) {
+                                 if(!processedFiles.has(filelist[i].name)){
+	                                   list.push(filelist[i]);
+	                                   totalSize += filelist[i].size;
+                                 }
+	                           }
+	                           uploadNext();
+	                       }
 
-         // on complete - start next file
-         function handleComplete(file) {
-             totalProgress += file.size;
-             drawProgress(totalProgress / totalSize);
-             processedFiles.add(file.name);
-             updateSummary();
-             uploadNext();
-         }
-         // update progress
-         function handleProgress(event) {
-             var progress = totalProgress + event.loaded;
-             drawProgress(progress / totalSize);
-         }
-         // upload file
-         function uploadFile(file, status) {
-             var formData = new FormData();
-	           formData.append('myfile', file);
+                         // on complete - start next file
+                         function handleComplete(file) {
+                             totalProgress += file.size;
+                             drawProgress(totalProgress / totalSize);
+                             processedFiles.add(file.name);
+                             updateSummary();
+                             uploadNext();
+                         }
+                         // update progress
+                         function handleProgress(event) {
+                             var progress = totalProgress + event.loaded;
+                             drawProgress(progress / totalSize);
+                         }
+                         // upload file
+                         function uploadFile(file, status) {
+                             var formData = new FormData();
+	                           formData.append('myfile', file);
 
-             $.ajax(
-                 {method: 'POST', url: "/annotations/api",
-                  cache: false,
-                  contentType: false,
-                  processData: false,
-                  data: formData,
-                  success: function(data){console.log("sucess"); handleComplete(file);},
-                  error: function(data){
-                      alert("Something went wrong for file: "+file.name+"\n"+data.responseJSON.error);
-                      handleComplete(file);
-                  },
-                  success: function(data){
-                      annotations[file.name] = data;
-                      handleComplete(file);
-                  }
-                 });
-         }
+                             $.ajax(
+                                 {method: 'POST', url: "/annotations/api",
+                                  cache: false,
+                                  contentType: false,
+                                  processData: false,
+                                  data: formData,
+                                  success: function(data){console.log("sucess"); handleComplete(file);},
+                                  error: function(data){
+                                      alert("Something went wrong for file: "+file.name+"\n"+data.responseJSON.error);
+                                      handleComplete(file);
+                                  },
+                                  success: function(data){
+                                      annotations[file.name] = data;
+                                      handleComplete(file);
+                                  }
+                                 });
+                         }
 
-         // upload next file
-         function uploadNext() {
-             if (list.length) {
-                 dropZone.className = 'uploading';
-                 var nextFile = list.shift();
-                 uploadFile(nextFile, status);
-             } else {
-                 dropZone.className = '';
-             }
-         }
+                         // upload next file
+                         function uploadNext() {
+                             if (list.length) {
+                                 dropZone.className = 'uploading';
+                                 var nextFile = list.shift();
+                                 uploadFile(nextFile, status);
+                             } else {
+                                 dropZone.className = '';
+                             }
+                         }
         </script>
     </body>
 </html>
