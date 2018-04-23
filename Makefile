@@ -9,7 +9,7 @@ PYTHON_PIP_VERSION=pip==9.0.1
 OPTIONAL_FEATURES:='[extension_tests]'
 
 VERSION=$(shell python -c 'from morph_service.version import VERSION; print(VERSION)')
-DOCKER_IMAGE=docker-registry-default.apps.bbp.epfl.ch/bbp-ou-nse/morph-service
+DOCKER_IMAGE=docker-registry-default.ocp.bbp.epfl.ch/bbp-ou-nse/morph-service
 
 
 ##### DO NOT MODIFY BELOW #####################
@@ -65,4 +65,3 @@ release:
 	docker pull $(DOCKER_IMAGE):$(VERSION)
 	docker tag $(DOCKER_IMAGE):$(VERSION) $(DOCKER_IMAGE):latest
 	docker push $(DOCKER_IMAGE):latest
-
