@@ -4,15 +4,18 @@ import tempfile
 import urllib
 from functools import partial
 
+from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
+from django.shortcuts import render_to_response
+
 import neurom
 from neurom.apps.annotate import annotate
 from neurom.check.neuron_checks import (has_no_dangling_branch,
                                         has_no_fat_ends, has_no_jumps,
                                         has_no_narrow_start)
 
-from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse
-from django.shortcuts import render
+from morph_service.version import VERSION
+
 
 CHECKERS = {has_no_fat_ends: {"name": "fat end",
                               "label": "Circle3",
@@ -28,9 +31,9 @@ CHECKERS = {has_no_fat_ends: {"name": "fat end",
                                      "color": "Magenta"}}
 
 
-def index(request):
+def index(_):
     '''Returns the template index.html'''
-    return render(request, 'annotations/index.html')
+    return render_to_response('annotations/index.html', {'version': VERSION})
 
 
 def api(request):
