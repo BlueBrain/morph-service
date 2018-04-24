@@ -124,5 +124,6 @@ STATICFILES_FINDERS = (
 )
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
