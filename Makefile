@@ -53,7 +53,7 @@ build:
 		.
 	@if echo $(VERSION) | grep -q '^[0-9]\{1,\}\.[0-9]\{1,\}\.[0-9]\{1,\}$$'; then \
 		docker tag morph-service:$(VERSION) $(DOCKER_IMAGE):$(VERSION) && \
-		docker push $(DOCKER_IMAGE):$(VERSION); \
+		docker push $(DOCKER_IMAGE):$(VERSION) && \
 		echo "morph-service version:$(VERSION) pushed to OpenShift registy"; \
 	else \
 		echo "version is DEV, skipping docker image push"; \
