@@ -6,7 +6,7 @@ from functools import partial
 
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 
 import neurom
 from neurom.apps.annotate import annotate
@@ -31,9 +31,9 @@ CHECKERS = {has_no_fat_ends: {"name": "fat end",
                                      "color": "Magenta"}}
 
 
-def index(_):
+def index(request):
     '''Returns the template index.html'''
-    return render_to_response('annotations/index.html', {'version': VERSION})
+    return render(request, 'annotations/index.html', {'version': VERSION})
 
 
 def api(request):

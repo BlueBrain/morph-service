@@ -76,13 +76,14 @@ font-size: medium;
                     <button  id="annotate-btn" onclick="resetAllFields()" style="margin-top:50px; margin-left:100px;" class="btn btn-warning btn-lg">Reset files <span class="glyphicon glyphicon-trash" aria-hidden=true></span></button>
                 </div>
                 <div class="col-md-6">
-                    <h3>Annotations summary:</h1>
-                        <div id="summary-div"></ul>
+                    <h3>Annotations summary:</h3>
+                        <div id="summary-div"></div>
                         <button id="export-summary" onclick="exportSummary()" style="margin-top:50px" class="btn btn-info btn-lg">Export Summary</button>
                         <a id="downloadAnchorElem" style="display:none"></a>
                 </div>
             </div>
         </div>
+
         <footer class="py-5 bg-dark">
             <div class="container">
                 <p style="margin-top:100px" class="m-0 text-center text-white">For more information about the annotation computation see: <a href="https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py">https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py</a></p>
@@ -93,8 +94,6 @@ font-size: medium;
 
         <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.js"></script>
-        <!-- <script src="{% static "FileSaver.js" %}"></script> -->
-        <!-- <script src="{% static "jszip.min.js" %}"></script>  -->
 
         <script>
          var dropZone = document.getElementById('drag-and-drop-box');
@@ -324,6 +323,5 @@ font-size: medium;
                      }
                  }
         </script>
-
     </body>
 </html>
