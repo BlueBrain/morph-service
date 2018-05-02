@@ -18,6 +18,29 @@
         <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
         <style>
+
+         ul#tips {
+max-width: 200px;
+         }
+
+         ul#tips li span {display: none;}
+         ul#tips li:hover span {
+	           display: block;
+	           position: absolute;
+	           left: 10%;
+             width: 300px;
+	           padding: 5px;
+	           margin: 10px;
+	           z-index: 100;
+	           color: #0000CC;
+	           background: #FFFFCC;
+	           font: 20px Verdana, Arial, Helvetica, sans-serif;
+	           text-align: center;
+	           border: 1px solid #666666;
+	           text-decoration: none;
+         }
+         /*          ul#tips p {position:relative} */
+
          #drag-and-drop-box {
              width: 450px;
              height: 240px;
@@ -31,7 +54,7 @@
          }
 
          #summary-div > ul > li > ul {
-font-size: medium;
+             font-size: medium;
          }
 
         </style>
@@ -48,12 +71,13 @@ font-size: medium;
         <div class="container" style="margin-top: 20px;">
             <div class="row">
                 <h3>Choose a Neurolucida file and press "Annotate!" to download a copy of this file with the annotations appended at the end</h3>
-                There are 4 types of supported annotations:
-                <ul>
-                    <li>Z-jump</li>
-                    <li>Narrow start</li>
-                    <li>Fat end</li>
-                    <li>Dangling branch</li>
+                There are 5 types of supported annotations:
+                <ul id="tips">
+                    <li>Z-jump<span>Check if there are jumps (large movements along the z axis)</span></li>
+                    <li>Narrow start<span>Check if neurites have a narrow start</span></li>
+                    <li>Fat end<span>Check if leaf points are too large</span></li>
+                    <li>Dangling branch<span>Check if the neuron has dangling neurites</span></li>
+                    <li>Single child<span>Check if the neuron has sections with only one child section</span></li>
                 </ul>
 
             </div>

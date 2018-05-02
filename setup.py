@@ -4,19 +4,21 @@ from setuptools import setup, find_packages
 from morph_service.version import VERSION
 
 REQS = ['Django==1.11.6',
-        'livereload==2.5.1',
-        'neurom']
+        'neurom==2.0.0',
+        'requests==2.18.4',
+        'livereload==2.5.1']
 
 TESTS_REQUIRE = [
     'argparse',
     'pep8',
     'nose',
+    'django-nose==1.4.5',
     'nosexcover',
     'coverage',
     'astroid',
     'pylint',
     'django-nose',
-    ]
+]
 
 setup(name='morph-service',
       version=VERSION,
@@ -31,5 +33,8 @@ setup(name='morph-service',
       extras_require={
           'extension_tests': TESTS_REQUIRE,
       },
+      dependency_links=[
+          'git+ssh://git@github.com/wizmer/NeuroM.git@morphio#egg=neurom-2.0.0'
+      ],
       scripts=['manage.py'],
       include_package_data=True,)

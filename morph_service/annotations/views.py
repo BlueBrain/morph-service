@@ -1,21 +1,29 @@
 '''The definition of each view'''
+import logging
 import os
+import sys
 import tempfile
-import urllib
 from functools import partial
+from io import open  # pylint: disable=redefined-builtin
 
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.shortcuts import render
+from future.standard_library import install_aliases
+from requests.utils import unquote
 
-import neurom
-from neurom.apps.annotate import annotate
+import neurom  # pylint: disable=import-error
+from neurom.apps.annotate import annotate  # pylint: disable=import-error
+# pylint: disable=import-error
 from neurom.check.neuron_checks import (has_no_dangling_branch,
                                         has_no_fat_ends, has_no_jumps,
-                                        has_no_narrow_start)
+                                        has_no_narrow_start,
+                                        has_no_single_children)
 
 from morph_service.version import VERSION
 
+install_aliases()
+logger = logging.getLogger()
 
 CHECKERS = {has_no_fat_ends: {"name": "fat end",
                               "label": "Circle3",
@@ -28,7 +36,11 @@ CHECKERS = {has_no_fat_ends: {"name": "fat end",
                                   "color": "Blue"},
             has_no_dangling_branch: {"name": "dangling",
                                      "label": "Circle6",
-                                     "color": "Magenta"}}
+                                     "color": "Magenta"},
+
+            has_no_single_children: {"name": "single children",
+                                     "label": "Circle7",
+                                     "color": "Red"}}
 
 
 def index(request):
@@ -49,7 +61,7 @@ def api(request):
                 raise UnrecognizedMorphologyFormat()
 
             uploaded_file_url = os.path.join(
-                tmp, urllib.parse.unquote(file_system_storage.url(filename)))
+                tmp, unquote(file_system_storage.url(filename)))
 
             neuron = neurom.load_neuron(uploaded_file_url)
         except UnrecognizedMorphologyFormat:
@@ -57,11 +69,14 @@ def api(request):
                                                      'The file must have the "asc" extension'])},
                                 status=400)
         except Exception as exception:  # pylint: disable=broad-except
+            logger.error(str(exception))
             return JsonResponse({'error': 'Error while loading the neuron.\n{}'.format(
                 exception)}, status=400)
 
         results = [checker(neuron) for checker in CHECKERS]
         annotations = annotate(results, CHECKERS.values())
+        if sys.version_info[0] < 3:
+            annotations = unicode(annotations)
 
         if annotations:
             with open(uploaded_file_url, 'a') as outf:
@@ -76,4 +91,4 @@ def api(request):
 
 
 class UnrecognizedMorphologyFormat(Exception):
-    '''An exception when morph file is not in ASC format'''
+    '''An exception when the morph file is not in ASC format'''

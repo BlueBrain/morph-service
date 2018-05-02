@@ -26,6 +26,14 @@ include $(FETCH_CI)/python/common_makefile
 
 ##### Override the Common Makefile ######
 
+devinstall: virtualenv
+	for f in $(INSTALL_MODULES); do \
+		if [ -f $$f/setup_requirements.txt ]; then \
+			$(PIP) install $(PIPPROXY) -r $$f/setup_requirements.txt; \
+                fi; \
+		(cd $$f && $(PIP) install $(PIPPROXY) --pre -e .$(OPTIONAL_FEATURES) --process-dependency-links); \
+	done
+
 test_morph_service/annotations:
 		@-rm .coverage 2> /dev/null
 		$(PLATFORM_VENV)/bin/coverage run manage.py test morph_service $* $(NOSEOPS) --exe --with-xunit --xunit-file=$(TEST_REPORTS_DIR)/nosetests_$(subst /,_,$*).xml && \
@@ -37,7 +45,7 @@ ci_dep.txt: virtualenv
 
 $(PLATFORM_VENV)/bin/activate:
 	$(CHECK_PYTHON_PATH)
-	virtualenv --no-site-packages -p python3 $(PLATFORM_VENV)
+	virtualenv --no-site-packages $(PLATFORM_VENV)
 	touch $(PLATFORM_VENV)/bin/activate
 
 ##### Docker ######
