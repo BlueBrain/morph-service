@@ -34,7 +34,7 @@ setup(name='morph-service',
           'extension_tests': TESTS_REQUIRE,
       },
       dependency_links=[
-          'git+ssh://git@github.com/wizmer/NeuroM.git@morphio#egg=neurom-2.0.0'
+          'git+https://git@github.com/wizmer/NeuroM.git@morphio#egg=neurom-2.0.0'
       ],
       scripts=['manage.py'],
       include_package_data=True,)
