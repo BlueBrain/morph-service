@@ -19,7 +19,8 @@ from . import views
 
 
 urlpatterns = [
-    url(r'', include('morph_service.annotations.urls')),
+    url(r'^$', views.index),
+    url(r'^classifier/', include('morph_service.classifier.urls')),
     url(r'^annotations/', include('morph_service.annotations.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^status$', views.status, name='status'),

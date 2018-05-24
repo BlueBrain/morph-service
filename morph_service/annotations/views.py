@@ -7,8 +7,7 @@ from functools import partial
 from io import open  # pylint: disable=redefined-builtin
 
 from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse
-from django.shortcuts import render
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from future.standard_library import install_aliases
 from requests.utils import unquote
 
@@ -19,8 +18,6 @@ from neurom.check.neuron_checks import (has_no_dangling_branch,
                                         has_no_fat_ends, has_no_jumps,
                                         has_no_narrow_start,
                                         has_no_single_children)
-
-from morph_service.version import VERSION
 
 install_aliases()
 logger = logging.getLogger()
@@ -43,13 +40,16 @@ CHECKERS = {has_no_fat_ends: {"name": "fat end",
                                      "color": "Red"}}
 
 
-def index(request):
+def index(_):
     '''Returns the template index.html'''
-    return render(request, 'annotations/index.html', {'version': VERSION})
+    return HttpResponseRedirect('/static/index.html/#/annotation')
 
 
 def api(request):
     '''Return a NeuroLucida file with the NeuroM annotations appended at then end'''
+    if request.method == 'OPTIONS':
+        return HttpResponse(204)
+
     if request.method == 'POST' and request.FILES:
         try:
             a_file = next(iter(request.FILES.values()))

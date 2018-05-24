@@ -1,0 +1,67 @@
+{
+  "classifiers": [{
+    "value": "LinearDiscriminantAnalysis",
+    "text": "Linear Discriminant Analysis"
+  }, {
+    "value": "QuadraticDiscriminantAnalysis",
+    "text": "Quadratic Discriminant Analysis"
+  }, {
+    "value": "DecisionTreeClassifier",
+    "text": "Decision Tree Classifier"
+  }],
+  "groups": [{
+    "value": "L2_IPC",
+    "text": "L2_IPC"
+  }, {
+    "value": "L2_TPC_A",
+    "text": "L2_TPC_A"
+  }, {
+    "value": "L2_TPC_B",
+    "text": "L2_TPC_B"
+  }, {
+    "value": "L3_TPC_A",
+    "text": "L3_TPC_A"
+  }, {
+    "value": "L3_TPC_B",
+    "text": "L3_TPC_B"
+  }, {
+    "value": "L4_SSC",
+    "text": "L4_SSC"
+  }, {
+    "value": "L4_TPC",
+    "text": "L4_TPC"
+  }, {
+    "value": "L4_UPC",
+    "text": "L4_UPC"
+  }, {
+    "value": "L5_TPC_A",
+    "text": "L5_TPC_A"
+  }, {
+    "value": "L5_TPC_B",
+    "text": "L5_TPC_B"
+  }, {
+    "value": "L5_TPC_C",
+    "text": "L5_TPC_C"
+  }, {
+    "value": "L5_UPC",
+    "text": "L5_UPC"
+  }, {
+    "value": "L6_BPC",
+    "text": "L6_BPC"
+  }, {
+    "value": "L6_HPC",
+    "text": "L6_HPC"
+  }, {
+    "value": "L6_IPC",
+    "text": "L6_IPC"
+  }, {
+    "value": "L6_TPC_A",
+    "text": "L6_TPC_A"
+  }, {
+    "value": "L6_TPC_C",
+    "text": "L6_TPC_C"
+  }, {
+    "value": "L6_UPC",
+    "text": "L6_UPC"
+  }]
+}

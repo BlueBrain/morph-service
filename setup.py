@@ -1,23 +1,48 @@
 #!/usr/bin/env python
 """ Morph service module """
-from setuptools import setup, find_packages
+from subprocess import call
+
+from setuptools import find_packages, setup
+from setuptools.command.develop import develop
+from setuptools.command.install import install
+
 from morph_service.version import VERSION
 
+
+class PostDevelopCommand(develop):
+    """Post-installation for development mode."""
+
+    def run(self):
+        call('(cd frontend && npm i && npm run build)', shell=True)
+        develop.run(self)
+
+
+class PostInstallCommand(install):
+    """Post-installation for installation mode."""
+
+    def run(self):
+        call('(cd frontend && npm i && npm run build)', shell=True)
+        install.run(self)
+
+
 REQS = ['Django==1.11.6',
+        'django-cors-middleware==1.3.1',
         'neurom==2.0.0',
+        'sklearn',
+        'tmd>=1.0.0',
         'requests==2.18.4',
         'livereload==2.5.1']
 
 TESTS_REQUIRE = [
     'argparse',
-    'pep8',
-    'nose',
+    'pep8==1.4.6',
+    'nose==1.3.0',
     'django-nose==1.4.5',
-    'nosexcover',
-    'coverage',
-    'astroid',
-    'pylint',
-    'django-nose',
+    'nosexcover==1.0.8',
+    'coverage==3.7',
+    'astroid==1.6.3',
+    'pylint==1.8.4',
+    'django-nose==1.4.5',
 ]
 
 setup(name='morph-service',
@@ -33,7 +58,12 @@ setup(name='morph-service',
       extras_require={
           'extension_tests': TESTS_REQUIRE,
       },
+      cmdclass={
+          'develop': PostDevelopCommand,
+          'install': PostInstallCommand,
+      },
       dependency_links=[
+          'git+ssh://bbpcode.epfl.ch/molecularsystems/TMD#egg=tmd-1.0.0',
           'git+https://git@github.com/wizmer/NeuroM.git@morphio#egg=neurom-2.0.0'
       ],
       scripts=['manage.py'],

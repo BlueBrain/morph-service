@@ -1,0 +1,48 @@
+.darker-blue {
+  background-color: #1b84ca;
+}
+.circle-number {
+  font-size: 20px;
+  border-radius: 50%;
+  background-color: darkgray;
+  color: white;
+  min-width: 27px;
+  min-height: 27px;
+  display: inline-block;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.flex-centered {
+  display: flex;
+  align-items: center;
+}
+
+@keyframes spin {
+  to {transform: rotate(360deg);}
+}
+
+.spin {
+  animation: spin 1.6s linear infinite;
+}
+
+.button-with-icon {
+  margin-top: 10px;
+}
+.button-with-icon span {
+  margin-right: 5px;
+}
+.custom-text-centered {
+  text-align: center;
+}
+
+.complete-page-height {
+  min-height: 100vh;
+}
