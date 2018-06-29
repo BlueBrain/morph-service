@@ -92,6 +92,10 @@ export default {
       this.hasFiles = true;
     },
     errorHandler(file, message, xhr) {
+      /*  Clean All cancels the requests and that produces
+          some error but it is actually fine */
+      if (file.status === 'canceled') return;
+
       swal({
         type: 'error',
         title: 'There was an error',
@@ -100,7 +104,7 @@ export default {
       throw Error(message);
     },
     removeAll() {
-      this.$refs.myVueDropzone.removeAllFiles();
+      this.$refs.myVueDropzone.removeAllFiles(true);
       this.hasFiles = false;
       this.$emit('removeAll');
     },
