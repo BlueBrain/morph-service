@@ -13,48 +13,43 @@ const classifiers = [
   'DecisionTreeClassifier',
 ];
 
-const {writeFile, readFile} = require('fs');
-const {startCase} = require('lodash');
+const { writeFile, readFile } = require('fs');
+const { startCase } = require('lodash');
 
 function createFilters(data) {
-  writeFile(outputPath, JSON.stringify(data), function(err) {
+  writeFile(outputPath, JSON.stringify(data), (err) => {
     if (err) throw err;
-    console.log('Filters configuration was created');
   });
 }
 
 function generateGroups(sourceArray, prettify) {
-  let totalGroups = [];
-  sourceArray.map((value) => {
-    // let layer = name.split('_')[0];
-    // if (!obj[layer]) obj[layer] = [];
-    // obj[layer].push(name);
+  const totalGroups = [];
+  sourceArray.forEach((value) => {
     let name = value;
     if (prettify) name = startCase(value);
-    totalGroups.push({value: value, text: name});
+    totalGroups.push({ value, text: name });
   });
   return totalGroups;
 }
 
-let prettify = true;
-let processedClassifiers = generateGroups(classifiers, prettify);
+const prettify = true;
+const processedClassifiers = generateGroups(classifiers, prettify);
 
-let processedGroups = generateGroups(arrayOfMorphologies);
+const processedGroups = generateGroups(arrayOfMorphologies);
 
 function createFiltersFn() {
+  // this will create a JSON with with morphologies and labels
   createFilters({
     classifiers: processedClassifiers,
     groups: processedGroups,
   });
-};
+}
 
 function getAnnotationVersion() {
-  readFile('../morph_service/version.py', 'utf8', function(err, data) {
-    if (err) {
-      return console.log(err);
-    }
-    let reg = /.*VERSION.+'(.*)'/;
-    let found = data.match(reg);
+  readFile('../morph_service/version.py', 'utf8', (err, data) => {
+    if (err) throw err;
+    const reg = /.*VERSION.+'(.*)'/;
+    const found = data.match(reg);
     if (found.length > 1) console.log(found[1]);
   });
 }

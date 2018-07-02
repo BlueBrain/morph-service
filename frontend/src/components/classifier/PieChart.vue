@@ -16,7 +16,7 @@
 
 <script>
 import Chart from 'chart.js';
-import {forEach} from 'lodash';
+import forEach from 'lodash/forEach';
 import distinctColors from 'distinct-colors';
 
 export default {
@@ -32,12 +32,12 @@ export default {
     setup() {
       /* eslint-disable-next-line no-console */
       console.debug('Classification', this.classification);
-      let amount = Object.keys(this.classification.result).length;
-      let ctx = this.chart.getContext('2d');
+      const amount = Object.keys(this.classification.result).length;
+      const ctx = this.chart.getContext('2d');
 
-      let palette = distinctColors({count: amount});
+      const palette = distinctColors({ count: amount });
 
-      let morphologyData = {
+      const morphologyData = {
         data: [],
         backgroundColor: [],
         labels: [],
@@ -47,10 +47,10 @@ export default {
         morphologyData.data.push(value);
         morphologyData.backgroundColor.push(palette[index].hex());
         morphologyData.labels.push(key);
-        index++;
+        index += 1;
       });
 
-      let config = {
+      const config = {
         type: 'pie',
         data: {
           datasets: [{
@@ -74,11 +74,11 @@ export default {
 
       Chart.defaults.global.tooltips.custom = this.customTooltip;
       // eslint-disable-next-line no-unused-vars
-      let myChart = new Chart(ctx, config);
+      const myChart = new Chart(ctx, config);
     },
     customTooltip(tooltip) {
       // Tooltip Element
-      let tooltipEl = this.$el.querySelector('#chartjs-tooltip');
+      const tooltipEl = this.$el.querySelector('#chartjs-tooltip');
 
       // Hide if no tooltip
       if (tooltip.opacity === 0) {
@@ -100,40 +100,38 @@ export default {
 
       // Set Text
       if (tooltip.body) {
-        let titleLines = tooltip.title || [];
-        let bodyLines = tooltip.body.map(getBody);
+        const titleLines = tooltip.title || [];
+        const bodyLines = tooltip.body.map(getBody);
 
         let innerHtml = '<thead>';
 
-        titleLines.forEach(function(title) {
-          innerHtml += '<tr><th>' + title + '</th></tr>';
+        titleLines.forEach((title) => {
+          innerHtml += `<tr><th>${title}</th></tr>`;
         });
         innerHtml += '</thead><tbody>';
 
-        bodyLines.forEach(function(body, i) {
-          let colors = tooltip.labelColors[i];
-          let style = 'background:' + colors.backgroundColor;
-          style += '; border-color:' + colors.borderColor;
+        bodyLines.forEach((body, i) => {
+          const colors = tooltip.labelColors[i];
+          let style = `background:${colors.backgroundColor}`;
+          style += `; border-color:${colors.borderColor}`;
           style += '; border-width: 2px';
-          let span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
-          innerHtml += '<tr><td>' + span + body + '%</td></tr>';
+          const span = `<span class="chartjs-tooltip-key" style="${style}"></span>`;
+          innerHtml += `<tr><td>${span}${body}%</td></tr>`;
         });
         innerHtml += '</tbody>';
 
-        let tableRoot = tooltipEl.querySelector('table');
+        const tableRoot = tooltipEl.querySelector('table');
         tableRoot.innerHTML = innerHtml;
       }
-      let positionY = this.chart.offsetTop;
-      let positionX = this.chart.offsetLeft;
+      const positionY = this.chart.offsetTop;
+      const positionX = this.chart.offsetLeft;
 
       // Display, position, and set styles for font
       tooltipEl.style.opacity = 1;
-      tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-      tooltipEl.style.top = positionY + tooltip.caretY + 'px';
-      tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
+      tooltipEl.style.left = `${positionX + tooltip.caretX}px`;
+      tooltipEl.style.top = `${positionY + tooltip.caretY}px`;
       tooltipEl.style.fontSize = tooltip.bodyFontSize;
-      tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
-      tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
+      tooltipEl.style.padding = `${tooltip.yPadding}px ${tooltip.xPadding}px`;
     },
   },
 };

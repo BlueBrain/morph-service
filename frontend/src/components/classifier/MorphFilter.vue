@@ -65,8 +65,9 @@
 
 <script>
 import filterConfig from '@/assets/filter-config.json';
-import {MultiSelect, ModelSelect} from 'vue-search-select';
-import {map} from 'lodash';
+import { MultiSelect, ModelSelect } from 'vue-search-select';
+import { map } from 'lodash';
+
 export default {
   name: 'MorphFilter',
   components: {
@@ -89,18 +90,18 @@ export default {
   },
   watch: {
     classifier: {
-      handler: function(val, oldVal) {
+      handler() {
         this.checkRequired();
       },
       deep: true,
     },
     morphologyTypes: {
-      handler: function(val, oldVal) {
+      handler() {
         this.checkRequired();
       },
       deep: true,
     },
-    numberOfTrials(newVal, oldVal) {
+    numberOfTrials() {
       this.checkRequired();
     },
   },
@@ -109,11 +110,11 @@ export default {
   },
   methods: {
     checkRequired() {
-      if (this.classifier.selected &&
-          this.numberOfTrials &&
-          this.morphologyTypes.selected &&
-          this.morphologyTypes.selected.length > 1) {
-        let params = {
+      if (this.classifier.selected
+          && this.numberOfTrials
+          && this.morphologyTypes.selected
+          && this.morphologyTypes.selected.length > 1) {
+        const params = {
           classifier: this.classifier.selected,
           morphtypes: JSON.stringify(map(this.morphologyTypes.selected, 'value')),
           trials: this.numberOfTrials,
@@ -121,7 +122,7 @@ export default {
         this.$emit('filtersOk', params);
       }
     },
-    onSelect(items, lastSelectItem) {
+    onSelect(items) {
       this.$set(this.morphologyTypes, 'selected', items);
     },
   },

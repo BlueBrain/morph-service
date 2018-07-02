@@ -56,7 +56,8 @@ import 'bulma-extensions/bulma-divider/dist/bulma-divider.min.css';
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import DisplaySummary from '@/components/annotation/DisplaySummary.vue';
 import Title from '@/components/Title.vue';
-import {getApiUrlEnv} from '@/assets/utils.js';
+import { getApiUrlEnv } from '@/assets/utils';
+import swal from 'sweetalert2';
 
 export default {
   name: 'Annotation',
@@ -84,11 +85,11 @@ export default {
       });
       this.annotations[result.file.name] = result.response.file;
       setTimeout(() => {
-        if (window.swal) swal.close();
+        swal.close();
       }, 500);
     },
     createLoadingSpin() {
-      if (window.swal) swal.enableLoading();
+      swal.enableLoading();
     },
     removeResults() {
       this.annotations = {};

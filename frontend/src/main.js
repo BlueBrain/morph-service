@@ -11,17 +11,29 @@ Vue.config.productionTip = false;
 
 const router = new VueRouter({
   routes: [
-    {path: '/', component: Home, name: 'MorphoTools'},
-    {path: '/annotation', component: Annotation, name: 'Annotation'},
-    {path: '/tmd', component: TMD, name: 'Topological Morphology Descriptor'},
+    {
+      path: '/',
+      component: Home,
+      name: 'MorphoTools',
+    },
+    {
+      path: '/annotation',
+      component: Annotation,
+      name: 'Annotation',
+    },
+    {
+      path: '/tmd',
+      component: TMD,
+      name: 'Topological Morphology Descriptor',
+    },
   ],
 });
 
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   document.title = to.name;
 });
 
 new Vue({
-  render: (h) => h(App),
+  render: h => h(App),
   router,
 }).$mount('#app');

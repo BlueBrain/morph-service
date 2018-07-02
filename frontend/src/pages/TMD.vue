@@ -59,9 +59,8 @@ import PieChart from '@/components/classifier/PieChart.vue';
 import PiePlaceholder from '@/components/classifier/PiePlaceholder.vue';
 import Title from '@/components/Title.vue';
 import MorphFilter from '@/components/classifier/MorphFilter.vue';
-import {findIndex} from 'lodash';
-import {save, sanitizeClassificationResults} from '@/assets/utils.js';
-import {getApiUrlEnv} from '@/assets/utils.js';
+import findIndex from 'lodash/findIndex';
+import { save, sanitizeClassificationResults, getApiUrlEnv } from '@/assets/utils';
 
 export default {
   name: 'Tmd',
@@ -82,9 +81,9 @@ export default {
   },
   methods: {
     classificationDone(results) { // results = {file, response}
-      let classification = sanitizeClassificationResults(results.response);
-      let index = findIndex(this.totalClassifications, {placeholder: results.file.name});
-      let graphData = {name: results.file.name, result: classification};
+      const classification = sanitizeClassificationResults(results.response);
+      const index = findIndex(this.totalClassifications, { placeholder: results.file.name });
+      const graphData = { name: results.file.name, result: classification };
       // replace placeholder for chart
       this.$set(this.totalClassifications, index, graphData);
     },
@@ -93,7 +92,7 @@ export default {
       this.disableDragAndDrop = false;
     },
     createLoadingSpin(fileName) {
-      this.totalClassifications.push({placeholder: fileName});
+      this.totalClassifications.push({ placeholder: fileName });
     },
     saveResults() {
       save('Classifications.json', JSON.stringify(this.totalClassifications));

@@ -27,7 +27,8 @@
 <script>
 import vue2Dropzone from 'vue2-dropzone';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
-import {isExtensionAllowed} from '@/assets/utils.js';
+import { isExtensionAllowed } from '@/assets/utils';
+import swal from 'sweetalert2';
 
 export default {
   name: 'DragAndDrop',
@@ -35,7 +36,7 @@ export default {
     vueDropzone: vue2Dropzone,
   },
   props: ['extraParams', 'apiUrl', 'extension'],
-  data: function() {
+  data() {
     return {
       dropzoneOptions: {
         url: this.apiUrl,
@@ -43,7 +44,6 @@ export default {
         params: this.extraParams,
         autoDiscover: false,
         createImageThumbnails: false,
-        // addRemoveLinks: true,
         timeout: 300000, // 5 minutes
         previewTemplate: `
           <div class="uploaded-image column">
@@ -54,7 +54,6 @@ export default {
               <span class="dz-upload" data-dz-uploadprogress></span>
             </div>
           </div>`,
-        maxFilesize: 3,
         dictDefaultMessage: `
           <i class="fas fa-cloud-upload-alt dd-title"></i>
           <span class="dd-subtitle">(click to select or drag and drop)</span>`,
@@ -71,9 +70,9 @@ export default {
     complete(file, response) {
       /* eslint-disable-next-line no-console */
       console.debug('Webservice completed', file.name);
-      this.$emit('jobFinished', {file, response});
+      this.$emit('jobFinished', { file, response });
     },
-    fileAdded(file, xhr, formData) {
+    fileAdded(file) {
       /* eslint-disable-next-line no-console */
       console.debug('File added', file.status);
       this.$emit('fileAdded', file.name);
@@ -91,7 +90,7 @@ export default {
       }
       this.hasFiles = true;
     },
-    errorHandler(file, message, xhr) {
+    errorHandler(file, message) {
       /*  Clean All cancels the requests and that produces
           some error but it is actually fine */
       if (file.status === 'canceled') return;

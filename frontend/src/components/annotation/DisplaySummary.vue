@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import {save} from '@/assets/utils.js';
+import { save } from '@/assets/utils';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 
@@ -50,34 +50,34 @@ export default {
   props: ['summaryArray', 'annotations'],
   methods: {
     exportSummary() {
-      let tmp = {};
+      const tmp = {};
       this.summaryArray.forEach((elem) => {
         tmp[elem.name] = elem.summary;
       });
       save('summary.json', JSON.stringify(tmp));
     },
     exportAnnotations() {
-      let keys = Object.keys(this.annotations);
+      const keys = Object.keys(this.annotations);
 
       if (keys.length === 1) {
         save(this.filenameAnnotations(keys[0]), this.annotations[keys[0]]);
       } else {
-        this.zipFiles(this.annotations);
+        this.zipFiles();
       }
     },
-    zipFiles(files) {
-      let zip = new JSZip();
+    zipFiles() {
+      const zip = new JSZip();
       // Generate a directory within the Zip file structure
-      let folder = zip.folder('annotations');
-      let keys = Object.keys(this.annotations);
+      const folder = zip.folder('annotations');
+      const keys = Object.keys(this.annotations);
       keys.forEach((name) => {
         // Add a file to the directory, in this case an image with data URI as contents
         folder.file(this.filenameAnnotations(name), this.annotations[name]);
       });
 
       // Generate the zip file asynchronously
-      zip.generateAsync({type: 'blob'})
-      .then(function(content) {
+      zip.generateAsync({ type: 'blob' })
+      .then((content) => {
         // Force down of the Zip file
         FileSaver.saveAs(content, 'archive.zip');
       });

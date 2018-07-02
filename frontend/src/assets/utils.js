@@ -1,5 +1,5 @@
 
-import {forEach} from 'lodash';
+import forEach from 'lodash/forEach';
 import config from '@/assets/config.json';
 
 function getMorphologyName(fullString) {
@@ -7,9 +7,9 @@ function getMorphologyName(fullString) {
 }
 
 function sanitizeClassificationResults(classificationJson) {
-  let obj = {};
+  const obj = {};
   forEach(classificationJson, (value, key) => {
-    let morphology = getMorphologyName(key);
+    const morphology = getMorphologyName(key);
     obj[morphology] = value * 100;
   });
   return obj;
@@ -25,11 +25,11 @@ function save(name, fileContent) {
   } else {
     stringFormat = fileContent;
   }
-  let blob = new Blob([stringFormat], {type: contentType});
+  const blob = new Blob([stringFormat], { type: contentType });
   if (window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveBlob(blob, name);
   } else {
-    let elem = window.document.createElement('a');
+    const elem = window.document.createElement('a');
     elem.href = window.URL.createObjectURL(blob);
     elem.download = name;
     document.body.appendChild(elem);
@@ -38,25 +38,27 @@ function save(name, fileContent) {
   }
 }
 
+function isDev() {
+  // if is dev remember to change the config.json with the endpoint url
+  const { href } = window.location;
+  const devHosts = ['localhost', '127.0.0.1', '0.0.0.0', '128.179'];
+  return devHosts.some(devHost => href.includes(devHost));
+}
+
 function getApiUrlEnv() {
   if (isDev()) return config.devUrl;
   return config.apiUrl;
 }
 
-function isDev() {
-  return window.location.href.includes('localhost') ||
-    window.location.href.includes('127.0.0.1') ||
-    window.location.href.includes('0.0.0.0');
-}
-
 function isExtensionAllowed(fileName, extensions) {
   let isAllowed = false;
+  const fileNameLower = fileName.toLowerCase();
   if (typeof extensions === 'string') {
-    isAllowed = fileName.endsWith(extensions);
+    isAllowed = fileNameLower.endsWith(extensions);
     return !!isAllowed;
   }
   if (Array.isArray(extensions)) {
-    isAllowed = extensions.find((ext) => fileName.endsWith(ext));
+    isAllowed = extensions.find(ext => fileNameLower.endsWith(ext));
     return !!isAllowed;
   }
   return !!isAllowed;
