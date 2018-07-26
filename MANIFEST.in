@@ -1,1 +1,3 @@
-recursive-include morph_service *.html
+recursive-include frontend *
+recursive-exclude frontend/node_modules *
+recursive-exclude frontend/dist *
