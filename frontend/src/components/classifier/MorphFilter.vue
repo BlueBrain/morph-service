@@ -14,7 +14,8 @@
           :options="classifier.list"
           :is-error="!classifier.selected"
           v-model="classifier.selected"
-          placeholder="Classifier"/>
+          placeholder="Classifier"
+        />
       </section>
     </transition>
 
@@ -26,7 +27,10 @@
           <span class="circle-number">2</span>
           <span
             class="subtitle is-3"
-            title="Number of iterations"># Iterations:</span>
+            title="Number of iterations"
+          >
+            # Iterations:
+          </span>
         </div>
         <input
           v-model="numberOfTrials"
@@ -35,7 +39,8 @@
           type="number"
           min="1"
           max="100"
-          placeholder="Number of iterations">
+          placeholder="Number of iterations"
+        >
       </section>
     </transition>
 

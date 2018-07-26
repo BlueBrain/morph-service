@@ -4,13 +4,13 @@
     <div class="section custom-card-container">
       <router-link
         class="card custom-card"
-        to="/tmd">
-        <div class="title">Classify morphologies using Topological Morphology Descriptor (TMD)</div>
+        to="tmd">
+        <div class="subtitle">Classify morphologies using Topological Morphology Descriptor (TMD)</div>
       </router-link>
       <router-link
         class="card custom-card"
-        to="/annotation">
-        <div class="title">Annotate morphologies</div>
+        to="annotation">
+        <div class="subtitle">Annotate morphologies</div>
       </router-link>
     </div>
   </div>
@@ -37,5 +37,7 @@ export default {
   .custom-card-container {
     display: flex;
     flex-direction: column;
+    max-width: 1100px;
+    margin: 0 auto;
   }
 </style>

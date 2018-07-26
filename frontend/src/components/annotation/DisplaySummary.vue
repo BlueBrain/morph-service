@@ -6,7 +6,8 @@
       <div
         v-for="element in summaryArray"
         :key="element.name"
-        class="column is-one-third">
+        class="column is-one-third"
+      >
         <ul class="menu-list">
           <li>
             <span class="title is-6">{{ element.name }}</span>

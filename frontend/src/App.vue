@@ -10,7 +10,8 @@
           role="button"
           class="navbar-burger"
           aria-label="menu"
-          aria-expanded="false">
+          aria-expanded="false"
+        >
           <span aria-hidden="true"/>
           <span aria-hidden="true"/>
           <span aria-hidden="true"/>
@@ -19,14 +20,15 @@
 
       <div class="navbar-menu">
         <div class="navbar-start">
-          <a
+          <router-link
             v-for="(value, key) in navItems"
             :key="key"
-            :href="'#' + key"
+            :to="key"
             :class="{'is-active': isActive(key)}"
-            class="navbar-item">
+            class="navbar-item"
+          >
             {{ value }}
-          </a>
+          </router-link>
         </div>
       </div>
 
@@ -45,8 +47,8 @@ export default {
     return {
       navItems: {
         '/': 'MorphService',
-        '/tmd': 'TMD Classifier',
-        '/annotation': 'Annotations',
+        classifier: 'TMD Classifier',
+        annotations: 'Annotations',
       },
     };
   },

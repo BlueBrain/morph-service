@@ -7,7 +7,8 @@ from functools import partial
 from io import open  # pylint: disable=redefined-builtin
 
 from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render_to_response
 from future.standard_library import install_aliases
 from requests.utils import unquote
 
@@ -42,7 +43,7 @@ CHECKERS = {has_no_fat_ends: {"name": "fat end",
 
 def index(_):
     '''Returns the template index.html'''
-    return HttpResponseRedirect('/static/index.html/#/annotation')
+    return render_to_response('index.html')
 
 
 def api(request):

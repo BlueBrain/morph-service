@@ -8,14 +8,15 @@ import tempfile
 
 import numpy as np
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render_to_response
 
 import tmd
 
 
 def index(_):
     '''Returns the template index.html'''
-    return HttpResponseRedirect('/static/index.html/#/tmd')
+    return render_to_response('index.html')
 
 
 LIST_OF_MODULES = ['discriminant_analysis', 'discriminant_analysis', 'tree']

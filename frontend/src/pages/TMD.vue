@@ -26,24 +26,29 @@
             :extension="['.h5', '.swc']"
             @jobFinished="classificationDone"
             @fileAdded="createLoadingSpin"
-            @removeAll="removeResults"/>
+            @removeAll="removeResults"
+          />
           <div class="columns is-multiline">
             <div
               v-for="chart in totalClassifications"
               :key="chart.name"
-              class="column is-one-third">
+              class="column is-one-third"
+            >
               <PieChart
                 v-if="chart.name"
-                :classification="chart"/>
+                :classification="chart"
+              />
               <PiePlaceholder
                 v-if="chart.placeholder"
-                :name="chart.placeholder"/>
+                :name="chart.placeholder"
+              />
             </div>
           </div>
           <div
             v-if="totalClassifications.length > 0 && totalClassifications[0].name"
             class="center-content"
-            @click="saveResults">
+            @click="saveResults"
+          >
             <span class="button darker-blue is-medium">Export results as JSON</span>
           </div>
         </div>

@@ -4,7 +4,7 @@
       title="Annotation Tool"
       subtitle="Annotate your morphologies"/>
     <section class="section">
-      <div class="title is-3">Choose a Neurolucida file and then you will be able to download a copy of this file(s) with the annotations appended at the end</div>
+      <div class="title is-4">Choose a Neurolucida file and then you will be able to download a copy of this file(s) with the annotations appended at the end</div>
       <div>
         <span>There are 5 types of supported annotations:</span>
         <span
@@ -23,21 +23,25 @@
           class="tag is-light is-medium tooltip is-tooltip-multiline"
           data-tooltip="Check if the neuron has sections with only one child section">Single child</span>
       </div>
+
+      <div class="title is-5 custom-text-centered">Upload your morphologies</div>
+      <DragAndDrop
+        :api-url="getApiUrlEnv() + '/annotations/api'"
+        extension=".asc"
+        @jobFinished="annotationDone"
+        @fileAdded="createLoadingSpin"
+        @removeAll="removeResults"
+      />
+      <div
+        v-if="hasFiles"
+        class="section"
+      >
+        <DisplaySummary
+          :summary-array="summary"
+          :annotations="annotations"
+        />
+      </div>
     </section>
-    <div class="title is-4 custom-text-centered">Upload your morphologies</div>
-    <DragAndDrop
-      :api-url="getApiUrlEnv() + '/annotations/api'"
-      extension=".asc"
-      @jobFinished="annotationDone"
-      @fileAdded="createLoadingSpin"
-      @removeAll="removeResults"/>
-    <div
-      v-if="hasFiles"
-      class="section">
-      <DisplaySummary
-        :summary-array="summary"
-        :annotations="annotations"/>
-    </div>
 
     <footer class="custom-footer">
       <div class="content has-text-centered">

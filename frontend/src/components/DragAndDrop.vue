@@ -10,12 +10,14 @@
       @vdropzone-file-added="changeFlagHasFile"
       @vdropzone-sending="fileAdded"
       @vdropzone-error="errorHandler"
-      @vdropzone-canceled="errorHandler"/>
+      @vdropzone-canceled="errorHandler"
+    />
     <div class="buttons has-addons is-centered">
       <button
         v-if="hasFiles"
         class="button button-with-icon is-rounded is-info is-outlined"
-        @click="removeAll">
+        @click="removeAll"
+      >
         <span>Clean All</span>
         <i class="far fa-trash-alt"/>
       </button>

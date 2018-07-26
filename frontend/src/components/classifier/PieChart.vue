@@ -7,7 +7,8 @@
       <canvas id="chart-area"/>
       <div
         id="chartjs-tooltip"
-        class="chartjs-tooltip">
+        class="chartjs-tooltip"
+      >
         <table/>
       </div>
     </div>

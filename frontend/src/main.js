@@ -10,6 +10,7 @@ Vue.use(VueRouter);
 Vue.config.productionTip = false;
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -17,12 +18,12 @@ const router = new VueRouter({
       name: 'MorphoTools',
     },
     {
-      path: '/annotation',
+      path: '/annotations',
       component: Annotation,
-      name: 'Annotation',
+      name: 'Annotations',
     },
     {
-      path: '/tmd',
+      path: '/classifier',
       component: TMD,
       name: 'Topological Morphology Descriptor',
     },
