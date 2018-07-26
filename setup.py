@@ -29,7 +29,7 @@ REQS = ['Django==1.11.6',
         'django-cors-middleware==1.3.1',
         'neurom==2.0.0',
         'sklearn',
-        'tmd>=1.0.0',
+        'tmd>=1.0.2',
         'requests==2.18.4',
         'livereload==2.5.1']
 
