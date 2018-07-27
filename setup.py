@@ -1,38 +1,33 @@
 #!/usr/bin/env python
 """ Morph service module """
-import os
 from subprocess import call
 
 from setuptools import find_packages, setup
-from setuptools.command.develop import develop
-from setuptools.command.install import install
+from setuptools.command import sdist
+
 
 from morph_service.version import VERSION
 
 
-def build_vue_app():
-    '''Build the frontend application in the dist/ folder'''
-    call('cd morph_service/frontend && npm i && npm run build', shell=True)
+def js_prerelease(command):
+    """decorator for building minified js/css prior to another command"""
+    class DecoratedCommand(command):
+        '''The decorator'''
+        def run(self):
+            '''The run function'''
+            call('cd morph_service/frontend && npm i && npm run build', shell=True)
+
+            command.run(self)
+            update_package_data(self.distribution)
+    return DecoratedCommand
 
 
-class PostDevelopCommand(develop):
-    """Post-installation for development mode."""
-
-    def run(self):
-        build_vue_app()
-        develop.run(self)
-
-
-class PostInstallCommand(install):
-    """Post-installation for installation mode."""
-
-    def run(self):
-        build_vue_app()
-        frontend_dist = os.path.join(self.build_lib, 'morph_service', 'frontend')
-        self.mkpath(frontend_dist)
-
-        call('mv morph_service/frontend/dist {}'.format(frontend_dist), shell=True)
-        install.run(self)
+def update_package_data(distribution):
+    """update package_data to catch changes during setup"""
+    build_py_ = distribution.get_command_obj('build_py')
+    # distribution.package_data = find_package_data()
+    # re-init build_py options which load package_data
+    build_py_.finalize_options()
 
 
 REQS = ['Django==1.11.6',
@@ -68,12 +63,8 @@ setup(name='morph-service',
       extras_require={
           'extension_tests': TESTS_REQUIRE,
       },
-      package_data={
-          '': ['*.js'],
-      },
       cmdclass={
-          'develop': PostDevelopCommand,
-          'install': PostInstallCommand,
+          'sdist': js_prerelease(sdist.sdist),
       },
       dependency_links=[
           'git+ssh://bbpcode.epfl.ch/molecularsystems/TMD#egg=tmd-1.0.0',
