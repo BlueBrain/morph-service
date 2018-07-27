@@ -59,7 +59,7 @@ ROOT_URLCONF = 'morph_service.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + '/frontend/dist/'],
+        'DIRS': [BASE_DIR + '/morph_service/frontend/dist/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,7 +130,7 @@ STATICFILES_FINDERS = (
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "frontend/dist"),
+    os.path.join(BASE_DIR, "morph_service/frontend/dist"),
 ]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
