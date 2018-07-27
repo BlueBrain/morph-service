@@ -1,3 +1,0 @@
-recursive-include morph_service/frontend *
-recursive-exclude morph_service/frontend/node_modules *
-recursive-exclude morph_service/frontend/dist *

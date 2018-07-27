@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """ Morph service module """
+import os
 from subprocess import call
 
 from setuptools import find_packages, setup
@@ -8,14 +9,17 @@ from setuptools.command.install import install
 
 from morph_service.version import VERSION
 
-FRONTEND_INSTALL_CMD = '(cd morph_service/frontend && npm i && npm run build)'
+
+def build_vue_app():
+    '''Build the frontend application in the dist/ folder'''
+    call('cd morph_service/frontend && npm i && npm run build', shell=True)
 
 
 class PostDevelopCommand(develop):
     """Post-installation for development mode."""
 
     def run(self):
-        call(FRONTEND_INSTALL_CMD, shell=True)
+        build_vue_app()
         develop.run(self)
 
 
@@ -23,7 +27,11 @@ class PostInstallCommand(install):
     """Post-installation for installation mode."""
 
     def run(self):
-        call(FRONTEND_INSTALL_CMD, shell=True)
+        build_vue_app()
+        frontend_dist = os.path.join(self.build_lib, 'morph_service', 'frontend')
+        self.mkpath(frontend_dist)
+
+        call('mv morph_service/frontend/dist {}'.format(frontend_dist), shell=True)
         install.run(self)
 
 

@@ -1,2 +1,2 @@
 '''The app version'''
-VERSION = '0.2.4'
+VERSION = '0.2.5.dev0'
