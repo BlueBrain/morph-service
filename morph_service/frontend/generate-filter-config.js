@@ -46,7 +46,7 @@ function createFiltersFn() {
 }
 
 function getAnnotationVersion() {
-  readFile('../morph_service/version.py', 'utf8', (err, data) => {
+  readFile('../version.py', 'utf8', (err, data) => {
     if (err) throw err;
     const reg = /.*VERSION.+'(.*)'/;
     const found = data.match(reg);

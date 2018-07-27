@@ -8,12 +8,14 @@ from setuptools.command.install import install
 
 from morph_service.version import VERSION
 
+FRONTEND_INSTALL_CMD = '(cd morph_service/frontend && npm i && npm run build)'
+
 
 class PostDevelopCommand(develop):
     """Post-installation for development mode."""
 
     def run(self):
-        call('(cd frontend && npm i && npm run build)', shell=True)
+        call(FRONTEND_INSTALL_CMD, shell=True)
         develop.run(self)
 
 
@@ -21,7 +23,7 @@ class PostInstallCommand(install):
     """Post-installation for installation mode."""
 
     def run(self):
-        call('(cd frontend && npm i && npm run build)', shell=True)
+        call(FRONTEND_INSTALL_CMD, shell=True)
         install.run(self)
 
 
@@ -48,7 +50,7 @@ TESTS_REQUIRE = [
 setup(name='morph-service',
       version=VERSION,
       description='morphology service',
-      packages=find_packages(exclude=[]),
+      packages=find_packages(),
       author='bbp platform team',
       author_email='bbp-ou-nse@epfl.ch',
       license='BBP-internal-confidential',
@@ -57,6 +59,9 @@ setup(name='morph-service',
       tests_require=TESTS_REQUIRE,
       extras_require={
           'extension_tests': TESTS_REQUIRE,
+      },
+      package_data={
+          '': ['*.js'],
       },
       cmdclass={
           'develop': PostDevelopCommand,
@@ -67,4 +72,4 @@ setup(name='morph-service',
           'git+https://git@github.com/wizmer/NeuroM.git@morphio#egg=neurom-2.0.0'
       ],
       scripts=['manage.py'],
-      include_package_data=True,)
+      include_package_data=True)
