@@ -59,7 +59,8 @@ ROOT_URLCONF = 'morph_service.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + '/morph_service/frontend/dist/'],
+        'DIRS': [BASE_DIR + '/morph_service/frontend/dist/',  # dev
+                 BASE_DIR + '/morph_service/static/'],  # prod
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,11 +128,17 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "morph_service/frontend/dist"),
+    # Development static files (served by Django local webserver)
+    os.path.join(BASE_DIR, "morph_service/frontend/dist")
 ]
+
+# Production static files (served by uwsgi)
+STATIC_ROOT = os.path.join(BASE_DIR, "morph_service/static")
+
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 

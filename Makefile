@@ -50,8 +50,11 @@ $(PLATFORM_VENV)/bin/activate:
 
 ##### Docker ######
 
-local_test: build
+local_test:
 	docker run -it --rm -p 8000:8000 morph-service:$(VERSION)
+
+docker_shell:
+	docker run -it --rm morph-service:$(VERSION) /bin/bash
 
 build:
 	@echo "building docker image version:$(VERSION)"

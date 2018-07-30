@@ -1,1 +1,1 @@
-recursive-include morph_service/frontend/dist *
+recursive-include morph_service/static *

@@ -2,6 +2,8 @@ FROM python:2.7
 
 ENV DJANGO_ENV=prod
 
+RUN apt update
+RUN apt install -y bash bash-completion vim
 RUN mkdir -p /opt/morph-service
 RUN pip install uwsgi
 
