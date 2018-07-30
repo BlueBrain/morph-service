@@ -16,7 +16,7 @@ def js_prerelease(command):
         def run(self):
             '''The run function'''
             call('cd morph_service/frontend && npm i && npm run build'
-                 ' && cp -T dist/* ../static', shell=True)
+                 ' && cp -RT dist ../static', shell=True)
 
             command.run(self)
             update_package_data(self.distribution)
