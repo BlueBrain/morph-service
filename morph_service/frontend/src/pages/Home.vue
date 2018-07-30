@@ -4,12 +4,12 @@
     <div class="section custom-card-container">
       <router-link
         class="card custom-card"
-        to="tmd">
+        to="classifier">
         <div class="subtitle">Classify morphologies using Topological Morphology Descriptor (TMD)</div>
       </router-link>
       <router-link
         class="card custom-card"
-        to="annotation">
+        to="annotations">
         <div class="subtitle">Annotate morphologies</div>
       </router-link>
     </div>
