@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 
 def build_js():
     '''The build command'''
-    call('(cd frontend && npm i && npm run build)', shell=True)
+    call('(cd morph_service/frontend && npm i && npm run build)', shell=True)
 
 
 class Command(BaseCommand):

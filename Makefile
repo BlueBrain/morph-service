@@ -50,11 +50,18 @@ $(PLATFORM_VENV)/bin/activate:
 
 ##### Docker ######
 
+.PHONY: local_test
+
 local_test:
 	docker run -it --rm -p 8000:8000 morph-service:$(VERSION)
 
 docker_shell:
 	docker run -it --rm morph-service:$(VERSION) /bin/bash
+
+docker_full_build: local_sdist build
+
+local_sdist:
+	python setup.py sdist
 
 build:
 	@echo "building docker image version:$(VERSION)"

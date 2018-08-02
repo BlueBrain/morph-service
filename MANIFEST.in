@@ -1,1 +1,2 @@
 recursive-include morph_service/static *
+recursive-include morph_service/classifier/training_sample *

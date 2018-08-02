@@ -20,3 +20,7 @@ Please visit **/morph_service/docs/install_in_macos.md**
  ```bash
  python manage.py runserver
  ```
+ # Test full docker
+ ```bash
+ make docker_full_build && make local_test
+ ```

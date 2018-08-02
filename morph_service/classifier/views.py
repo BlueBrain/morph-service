@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import json
 import os
 import tempfile
+import pkg_resources
 
 import numpy as np
 from django.core.files.storage import FileSystemStorage
@@ -93,6 +94,13 @@ def percentages(groups, predict_labels, labels):
             for i in np.unique(labels)}
 
 
+def generate_groups(list_of_groups):
+    '''Morpholog groups'''
+    BASE = pkg_resources.resource_filename('morph_service', 'classifier/training_sample')
+    return [tmd.io.load_population(os.path.join(BASE, l))
+            for l in list_of_groups]
+
+
 def classify_cell_in_groups(list_of_groups,
                             cell_to_classify,
                             neurite_type='apical',
@@ -100,10 +108,7 @@ def classify_cell_in_groups(list_of_groups,
                             classifier_method=LIST_OF_CLASSIFIERS[0],
                             number_of_trials=20):
     '''The classifier'''
-
-    groups = [tmd.io.load_population(os.path.join('morph_service/classifier/training_sample/', l))
-              for l in list_of_groups]
-
+    groups = generate_groups(list_of_groups)
     # Define labels depending on the number of neurons in each folder
     labels = [i + 1 for i, k in enumerate(groups) for _ in k.neurons]
 
