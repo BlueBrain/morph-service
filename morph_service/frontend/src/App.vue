@@ -47,8 +47,8 @@ export default {
     return {
       navItems: {
         '/': 'MorphService',
-        classifier: 'TMD Classifier',
-        annotations: 'Annotations',
+        '/classifier': 'TMD Classifier',
+        '/annotations': 'Annotations',
       },
     };
   },

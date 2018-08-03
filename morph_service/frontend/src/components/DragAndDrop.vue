@@ -47,6 +47,7 @@ export default {
         autoDiscover: false,
         createImageThumbnails: false,
         timeout: 300000, // 5 minutes
+        parallelUploads: 1,
         previewTemplate: `
           <div class="uploaded-image column">
             <span data-dz-name></span>
