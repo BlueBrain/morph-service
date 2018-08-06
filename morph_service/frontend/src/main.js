@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import Annotation from '@/pages/Annotation.vue';
-import TMD from '@/pages/TMD.vue';
+import TMD from '@/pages/Classifier.vue';
 import Home from '@/pages/Home.vue';
 
 Vue.use(VueRouter);

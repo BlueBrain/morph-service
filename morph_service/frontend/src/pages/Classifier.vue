@@ -68,7 +68,7 @@ import findIndex from 'lodash/findIndex';
 import { save, sanitizeClassificationResults, getApiUrlEnv } from '@/assets/utils';
 
 export default {
-  name: 'Tmd',
+  name: 'Classifier',
   components: {
     DragAndDrop,
     Title,

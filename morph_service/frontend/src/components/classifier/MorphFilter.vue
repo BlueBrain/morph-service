@@ -34,11 +34,11 @@
         </div>
         <input
           v-model="numberOfTrials"
-          :class="{'input-error': !numberOfTrials}"
+          :class="{'input-error': !isNumberOfTrialsCorrect}"
           class="input custom-height fluid dropdown"
           type="number"
-          min="1"
-          max="100"
+          min="2"
+          max="50"
           placeholder="Number of iterations"
         >
       </section>
@@ -47,7 +47,7 @@
 
     <transition name="fade">
       <section
-        v-if="numberOfTrials"
+        v-if="isNumberOfTrialsCorrect"
         class="column is-full">
         <div class="flex-centered">
           <span class="circle-number">3</span>
@@ -93,6 +93,14 @@ export default {
       numberOfTrials: null,
     };
   },
+  computed: {
+    isNumberOfTrialsCorrect() {
+      if (this.numberOfTrials > 1 && this.numberOfTrials < 51) {
+        return true;
+      }
+      return false;
+    },
+  },
   watch: {
     classifier: {
       handler() {
@@ -107,7 +115,9 @@ export default {
       deep: true,
     },
     numberOfTrials() {
-      this.checkRequired();
+      if (this.isNumberOfTrialsCorrect) {
+        this.checkRequired();
+      }
     },
   },
   mounted() {
@@ -116,7 +126,7 @@ export default {
   methods: {
     checkRequired() {
       if (this.classifier.selected
-          && this.numberOfTrials
+          && this.isNumberOfTrialsCorrect
           && this.morphologyTypes.selected
           && this.morphologyTypes.selected.length > 1) {
         const params = {

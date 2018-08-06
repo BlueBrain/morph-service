@@ -24,7 +24,7 @@
             v-for="(value, key) in navItems"
             :key="key"
             :to="key"
-            :class="{'is-active': isActive(key)}"
+            :class="{'is-active': currentPath === key}"
             class="navbar-item"
           >
             {{ value }}
@@ -52,9 +52,15 @@ export default {
       },
     };
   },
-  methods: {
-    isActive(route) {
-      return this.$route.fullPath.endsWith(route);
+  computed: {
+    currentPath() {
+      let currentPath = this.$route.path;
+      // remove trailing slash
+      if (currentPath.length > 1
+          && currentPath.endsWith('/')) {
+        currentPath = currentPath.substr(0, currentPath.length - 1);
+      }
+      return currentPath;
     },
   },
 };
