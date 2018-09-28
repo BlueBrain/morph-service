@@ -80,7 +80,7 @@ export default {
       zip.generateAsync({ type: 'blob' })
       .then((content) => {
         // Force down of the Zip file
-        FileSaver.saveAs(content, 'archive.zip');
+        FileSaver.saveAs(content, 'annotation_archive.zip');
       });
     },
     filenameAnnotations(name) {

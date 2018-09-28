@@ -34,6 +34,7 @@ def update_package_data(distribution):
 REQS = ['Django==1.11.6',
         'django-cors-middleware==1.3.1',
         'neurom==2.0.0',
+        'morph-tool>=0.0.3',
         'sklearn',
         'tmd>=1.0.2',
         'requests==2.18.4',

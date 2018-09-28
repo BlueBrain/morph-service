@@ -1,27 +1,32 @@
+
 <template>
   <div class="complete-page-height">
     <Title
       title="Annotation Tool"
-      subtitle="Annotate your morphologies"/>
+      subtitle="Annotate your morphologies"
+    />
+
     <section class="section">
       <div class="title is-4">Choose a Neurolucida file and then you will be able to download a copy of this file(s) with the annotations appended at the end</div>
-      <div>
+      <div class="inline">
         <span>There are 5 types of supported annotations:</span>
-        <span
-          class="tag is-light is-medium tooltip is-tooltip-multiline"
-          data-tooltip="Check if there are jumps (large movements along the z axis)">Z-jump</span>
-        <span
-          class="tag is-light is-medium tooltip is-tooltip-multiline"
-          data-tooltip="Check if neurites have a narrow start">Narrow start</span>
-        <span
-          class="tag is-light is-medium tooltip is-tooltip-multiline"
-          data-tooltip="Check if leaf points are too large">Fat end</span>
-        <span
-          class="tag is-light is-medium tooltip is-tooltip-multiline"
-          data-tooltip="Check if the neuron has dangling neurites">Dangling branch</span>
-        <span
-          class="tag is-light is-medium tooltip is-tooltip-multiline"
-          data-tooltip="Check if the neuron has sections with only one child section">Single child</span>
+        <div class="tags">
+          <span
+            class="tag is-light is-medium tooltip"
+            data-tooltip="Check if there are jumps (large movements along the z axis)">Z-jump</span>
+          <span
+            class="tag is-light is-medium tooltip"
+            data-tooltip="Check if neurites have a narrow start">Narrow start</span>
+          <span
+            class="tag is-light is-medium tooltip"
+            data-tooltip="Check if leaf points are too large">Fat end</span>
+          <span
+            class="tag is-light is-medium tooltip"
+            data-tooltip="Check if the neuron has dangling neurites">Dangling branch</span>
+          <span
+            class="tag is-light is-medium tooltip"
+            data-tooltip="Check if the neuron has sections with only one child section">Single child</span>
+        </div>
       </div>
 
       <div class="title is-5 custom-text-centered">Upload your morphologies</div>
@@ -54,9 +59,8 @@
   </div>
 </template>
 
+
 <script>
-import 'bulma-extensions/bulma-tooltip/dist/bulma-tooltip.min.css';
-import 'bulma-extensions/bulma-divider/dist/bulma-divider.min.css';
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import DisplaySummary from '@/components/annotation/DisplaySummary.vue';
 import Title from '@/components/Title.vue';
@@ -84,10 +88,10 @@ export default {
       // result {file, response {file, summary}}
       this.hasFiles = true;
       this.summary.push({
-        name: result.file.name,
+        name: result.fileSent.name,
         summary: result.response.summary,
       });
-      this.annotations[result.file.name] = result.response.file;
+      this.annotations[result.fileSent.name] = result.response.file;
       setTimeout(() => {
         swal.close();
       }, 500);
@@ -104,16 +108,10 @@ export default {
 };
 </script>
 
-<style>
-.tooltip.is-tooltip-multiline::before {
-  font-size: 16px;
-  min-width: 150px;
-}
-.custom-footer {
-  position: sticky;
-  text-align: center;
-  width: 100%;
-  top: 90vh;
-  font-size: 12px;
-}
+
+<style scoped>
+  .inline {
+    display: inline-flex;
+    align-items: center;
+  }
 </style>

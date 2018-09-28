@@ -3,7 +3,7 @@
   <div>
     <vue-dropzone
       id="dropzone"
-      ref="myVueDropzone"
+      ref="vueDropzoneComponent"
       :options="dropzoneOptions"
       class="customized-color"
       @vdropzone-success="complete"
@@ -42,8 +42,6 @@ export default {
     return {
       dropzoneOptions: {
         url: this.apiUrl,
-        method: 'POST',
-        params: this.extraParams,
         autoDiscover: false,
         createImageThumbnails: false,
         timeout: 300000, // 5 minutes
@@ -65,20 +63,41 @@ export default {
     };
   },
   watch: {
-    extraParams(newVal) {
-      this.$refs.myVueDropzone.setOption('params', newVal);
+    extraParams() {
+      this.setParamsRequest();
     },
   },
+  mounted() {
+    this.setParamsRequest();
+  },
   methods: {
+    setParamsRequest() {
+      if (!this.extraParams) return;
+      this.$refs.vueDropzoneComponent.setOption('params', this.extraParams);
+      if (this.extraParams.isBlob) {
+        this.$refs.vueDropzoneComponent.setOption('headers', { Accept: 'application/octet-stream' });
+      }
+    },
     complete(file, response) {
       /* eslint-disable-next-line no-console */
       console.debug('Webservice completed', file.name);
-      this.$emit('jobFinished', { file, response });
+      this.$emit('jobFinished', { fileSent: file, response });
     },
-    fileAdded(file) {
-      /* eslint-disable-next-line no-console */
+    fileAdded(file, xhr) {
+      /* eslint-disable no-console,no-param-reassign */
       console.debug('File added', file.status);
+
+      if (this.extraParams.isBlob) {
+        console.debug('File is BLOB');
+        // overwrite the function (dropzone does not support binary response)
+        xhr.responseType = 'blob';
+        xhr.onload = (() => {
+          console.debug('Webservice completed', file.name);
+          this.$emit('jobFinished', { fileSent: file, response: xhr.response });
+        });
+      }
       this.$emit('fileAdded', file.name);
+      /* eslint-enable no-console no-param-reassign */
     },
     changeFlagHasFile(file) {
       // this will happen always even if the file has error
@@ -88,7 +107,7 @@ export default {
           title: 'The file format is not supported',
           text: `Please provide a file with ${this.extension} extension`,
         });
-        this.$refs.myVueDropzone.removeFile(file);
+        this.$refs.vueDropzoneComponent.removeFile(file);
         return;
       }
       this.hasFiles = true;
@@ -106,7 +125,7 @@ export default {
       throw Error(message);
     },
     removeAll() {
-      this.$refs.myVueDropzone.removeAllFiles(true);
+      this.$refs.vueDropzoneComponent.removeAllFiles(true);
       this.hasFiles = false;
       this.$emit('removeAll');
     },

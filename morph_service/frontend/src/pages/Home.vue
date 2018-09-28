@@ -12,6 +12,11 @@
         to="annotations">
         <div class="subtitle">Annotate morphologies</div>
       </router-link>
+      <router-link
+        class="card custom-card"
+        to="converter">
+        <div class="subtitle">Convert morphologies</div>
+      </router-link>
     </div>
   </div>
 </template>

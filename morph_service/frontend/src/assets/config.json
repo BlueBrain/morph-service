@@ -1,4 +1,4 @@
 {
   "apiUrl": "http://morph-service.ocp.bbp.epfl.ch",
-  "devUrl": "http://127.0.0.1:8000"
+  "devUrl": "http://localhost:8000"
 }

@@ -1,6 +1,7 @@
 
 import forEach from 'lodash/forEach';
 import config from '@/assets/config.json';
+import FileSaver from 'file-saver';
 
 function getMorphologyName(fullString) {
   return fullString.split('/').pop();
@@ -17,25 +18,11 @@ function sanitizeClassificationResults(classificationJson) {
 
 function save(name, fileContent) {
   // saves the content to a file. Extension is required.
-  let contentType = 'text/plain';
+  let contentType = 'text/plain;charset=utf-8';
   if (name.endsWith('.json')) contentType = 'text/json';
-  let stringFormat = null;
-  if (fileContent && Array.isArray(fileContent)) {
-    stringFormat = fileContent.join('\n');
-  } else {
-    stringFormat = fileContent;
-  }
-  const blob = new Blob([stringFormat], { type: contentType });
-  if (window.navigator.msSaveOrOpenBlob) {
-    window.navigator.msSaveBlob(blob, name);
-  } else {
-    const elem = window.document.createElement('a');
-    elem.href = window.URL.createObjectURL(blob);
-    elem.download = name;
-    document.body.appendChild(elem);
-    elem.click();
-    document.body.removeChild(elem);
-  }
+  if (name.endsWith('.h5')) contentType = 'application/octet-stream';
+  const blob = new Blob([fileContent], { type: contentType });
+  FileSaver.saveAs(blob, name);
 }
 
 function isDev() {

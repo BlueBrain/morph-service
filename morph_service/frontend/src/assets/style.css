@@ -42,8 +42,21 @@
 .custom-text-centered {
   text-align: center;
   margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 .complete-page-height {
   min-height: 100vh;
+}
+
+.tooltip.is-tooltip-multiline::before {
+  font-size: 16px;
+  min-width: 150px;
+}
+.custom-footer {
+  position: sticky;
+  text-align: center;
+  width: 100%;
+  top: 90vh;
+  font-size: 12px;
 }

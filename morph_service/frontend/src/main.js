@@ -3,6 +3,7 @@ import App from './App.vue';
 import VueRouter from 'vue-router';
 import Annotation from '@/pages/Annotation.vue';
 import TMD from '@/pages/Classifier.vue';
+import Converter from '@/pages/Converter.vue';
 import Home from '@/pages/Home.vue';
 
 Vue.use(VueRouter);
@@ -26,6 +27,11 @@ const router = new VueRouter({
       path: '/classifier',
       component: TMD,
       name: 'Topological Morphology Descriptor',
+    },
+    {
+      path: '/converter',
+      component: Converter,
+      name: 'Morphology converter',
     },
   ],
 });

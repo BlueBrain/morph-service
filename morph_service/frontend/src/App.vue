@@ -26,9 +26,7 @@
             :to="key"
             :class="{'is-active': currentPath === key}"
             class="navbar-item"
-          >
-            {{ value }}
-          </router-link>
+          >{{ value }}</router-link>
         </div>
       </div>
 
@@ -39,6 +37,8 @@
 
 <script>
 import 'bulma/css/bulma.css';
+import 'bulma-extensions/bulma-tooltip/dist/css/bulma-tooltip.min.css';
+import 'bulma-extensions/bulma-divider/dist/css/bulma-divider.min.css';
 import '@/assets/style.css';
 
 export default {
@@ -49,6 +49,7 @@ export default {
         '/': 'MorphService',
         '/classifier': 'TMD Classifier',
         '/annotations': 'Annotations',
+        '/converter': 'Converter',
       },
     };
   },

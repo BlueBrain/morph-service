@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^classifier/', include('morph_service.classifier.urls')),
     url(r'^annotations/', include('morph_service.annotations.urls')),
+    url(r'^converter/', include('morph_service.converter.urls')),
     url(r'^status$', views.status, name='status'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

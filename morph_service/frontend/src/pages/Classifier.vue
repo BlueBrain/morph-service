@@ -1,7 +1,8 @@
+
 <template>
   <div>
     <Title title="Classification of neurons">
-      <h2>
+      <h2 class="subtitle">
       <span>Classification using</span>
       <a href="https://link.springer.com/article/10.1007/s12021-017-9341-1">
       Topological Morphology Descriptor (TMD)
@@ -9,6 +10,7 @@
       </a>
       </h2>
     </Title>
+
     <section class="section">
       <MorphFilter @filtersOk="enableDD"/>
 
@@ -57,6 +59,7 @@
     </section>
   </div>
 </template>
+
 
 <script>
 import DragAndDrop from '@/components/DragAndDrop.vue';
@@ -108,6 +111,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
   .spaced-bottom {
