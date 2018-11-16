@@ -2,29 +2,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import json
+import logging
 import os
 import tempfile
 from io import open  # pylint: disable=redefined-builtin
 
-import neurom  # pylint: disable=import-error
 from django.core.files.storage import FileSystemStorage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render_to_response
 from morph_tool import converter
-
-from neurom.apps.annotate import annotate  # pylint: disable=import-error
 # pylint: disable=import-error
-from neurom.check.neuron_checks import (has_no_dangling_branch,
-                                        has_no_fat_ends, has_no_jumps,
-                                        has_no_narrow_start,
-                                        has_no_single_children)
 from requests.utils import unquote
 
-
-import logging
-from django.shortcuts import render_to_response
-logger = logging.getLogger()
+L = logging.getLogger()
 
 
 def index(_):
@@ -33,6 +24,7 @@ def index(_):
 
 
 class MyJsonResponse(JsonResponse):
+    '''JSon response that handles binary data'''
     def __init__(self, data, encoder=DjangoJSONEncoder, safe=True, **kwargs):
         json_dumps_params = dict(ensure_ascii=False)
         super(MyJsonResponse, self).__init__(data, encoder, safe, json_dumps_params, **kwargs)
@@ -58,7 +50,7 @@ def api(request):
                                            filename_no_ext + output_extension)
             converter.run(uploaded_file_url, output_filename)
         except Exception as exception:  # pylint: disable=broad-except
-            logger.error(str(exception))
+            L.error(str(exception))
             return JsonResponse({'error': 'Error while loading the neuron.\n{}'.format(
                 exception)}, status=400)
 
@@ -70,9 +62,11 @@ def api(request):
             flag = 'r'
             content_type = 'text/plain'
 
-        with open(output_filename, flag) as fp:
-            data = fp.read()
+        with open(output_filename, flag) as filep:
+            data = filep.read()
             response = HttpResponse(content_type=content_type)
             # response['Content-Disposition'] = 'attachment; filename=%s' % filename
             response.write(data)
             return response
+
+    return HttpResponse(200)

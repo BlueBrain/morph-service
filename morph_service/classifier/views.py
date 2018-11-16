@@ -96,11 +96,12 @@ def percentages(groups, predict_labels, labels):
 
 def generate_groups(list_of_groups):
     '''Morpholog groups'''
-    BASE = pkg_resources.resource_filename('morph_service', 'classifier/training_sample')
-    return [tmd.io.load_population(os.path.join(BASE, l))
+    base = pkg_resources.resource_filename('morph_service', 'classifier/training_sample')
+    return [tmd.io.load_population(os.path.join(base, l))
             for l in list_of_groups]
 
 
+# pylint: disable=too-many-arguments
 def classify_cell_in_groups(list_of_groups,
                             cell_to_classify,
                             neurite_type='apical',

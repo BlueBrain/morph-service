@@ -1,7 +1,6 @@
 '''The definition of each view'''
 import logging
 import os
-import sys
 import tempfile
 from functools import partial
 from io import open  # pylint: disable=redefined-builtin
@@ -21,7 +20,7 @@ from neurom.check.neuron_checks import (has_no_dangling_branch,
                                         has_no_single_children)
 
 install_aliases()
-logger = logging.getLogger()
+L = logging.getLogger()
 
 CHECKERS = {has_no_fat_ends: {"name": "fat end",
                               "label": "Circle3",
@@ -70,14 +69,12 @@ def api(request):
                                                      'The file must have the "asc" extension'])},
                                 status=400)
         except Exception as exception:  # pylint: disable=broad-except
-            logger.error(str(exception))
+            L.error(str(exception))
             return JsonResponse({'error': 'Error while loading the neuron.\n{}'.format(
                 exception)}, status=400)
 
         results = [checker(neuron) for checker in CHECKERS]
         annotations = annotate(results, CHECKERS.values())
-        if sys.version_info[0] < 3:
-            annotations = unicode(annotations)
 
         if annotations:
             with open(uploaded_file_url, 'a') as outf:
@@ -89,6 +86,7 @@ def api(request):
                                              if result.info},
                                  'file': ''.join(outf.readlines())})
         return JsonResponse({'status': 'ok'})
+    return HttpResponse(200)
 
 
 class UnrecognizedMorphologyFormat(Exception):

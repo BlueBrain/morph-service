@@ -7,6 +7,10 @@ import unittest
 from django.test import TestCase
 from django.test import Client
 
+from numpy.testing import assert_array_equal
+
+from morphio import Morphology
+
 class SimpleTest(unittest.TestCase):
     '''Annotation test'''
 
@@ -16,20 +20,27 @@ class SimpleTest(unittest.TestCase):
 
     def test_details(self):
         '''Issue a GET request.'''
+
+        input_filename = os.path.join(os.path.dirname(__file__), 'simple.asc')
         with open(os.path.join(os.path.dirname(__file__), 'simple.asc')) as inputf:
             response = self.client.post('/converter/api',
                                         {'output_extension': '.swc', 'file': inputf})
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content,
-                         '# index     type         X            Y            Z       radius       parent\n1           1     0.000000     0.000000     0.000000     1.000000          -1\n2           3     0.000000     0.000000     0.000000     1.000000           1\n3           3     0.000000     5.000000     0.000000     1.000000           2\n4           3    -5.000000     5.000000     0.000000     1.500000           3\n5           3     6.000000     5.000000     0.000000     1.500000           3\n6           2     0.000000     0.000000     0.000000     1.000000           1\n7           2     0.000000    -4.000000     0.000000     1.000000           6\n8           2     6.000000    -4.000000     0.000000     2.000000           7\n9           2    -5.000000    -4.000000     0.000000     2.000000           7\n\n# Created by MorphIO v1.0.3\n')
 
+        swc_name = '/tmp/blah.swc'
+        with open(swc_name, 'wb') as f:
+            f.write(response.content)
+
+        input_morphology = Morphology(input_filename)
+        self.assertEqual(input_morphology, Morphology(swc_name))
 
         with open(os.path.join(os.path.dirname(__file__), 'simple.asc')) as inputf:
             r = self.client.post('/converter/api',
-                                        {'output_extension': '.h5', 'file': inputf})
+                                 {'output_extension': '.h5', 'file': inputf})
 
-        with open('/tmp/test.h5', 'wb') as f:
+        h5_name = '/tmp/blah.h5'
+
+        with open(h5_name, 'wb') as f:
             f.write(r.content)
-
-        self.assertEqual(False, True)
+        self.assertEqual(input_morphology, Morphology(h5_name))

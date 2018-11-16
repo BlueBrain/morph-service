@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 """ Morph service module """
 from subprocess import call
-
 from setuptools import find_packages, setup
 from setuptools.command import sdist
-
-
 from morph_service.version import VERSION
 
 
 def js_prerelease(command):
-    """decorator for building minified js/css prior to another command"""
+    """decorator for building minified js/css prior to another command """
     class DecoratedCommand(command):
         '''The decorator'''
+
         def run(self):
             '''The run function'''
             call('cd morph_service/frontend && npm i && npm run build'
@@ -21,6 +19,7 @@ def js_prerelease(command):
             command.run(self)
             update_package_data(self.distribution)
     return DecoratedCommand
+
 
 
 def update_package_data(distribution):
