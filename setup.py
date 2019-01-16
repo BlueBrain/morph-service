@@ -32,10 +32,10 @@ def update_package_data(distribution):
 
 REQS = ['Django==1.11.6',
         'django-cors-middleware==1.3.1',
-        'neurom==2.0.0',
-        'morph-tool>=0.0.3',
+        'morph-tool[all]>=0.0.3',
         'sklearn',
-        'tmd>=1.0.2',
+        'neurom @ git+https://git@github.com/wizmer/NeuroM.git@morphio#egg=neurom-2.0.0',
+        'tmd>=2.0.3',
         'requests==2.18.4',
         'livereload==2.5.1']
 
@@ -68,8 +68,6 @@ setup(name='morph-service',
           'sdist': js_prerelease(sdist.sdist),
       },
       dependency_links=[
-          'git+ssh://bbpcode.epfl.ch/molecularsystems/TMD#egg=tmd-1.0.0',
-          'git+https://git@github.com/wizmer/NeuroM.git@morphio#egg=neurom-2.0.0'
       ],
       scripts=['manage.py'],
       include_package_data=True)

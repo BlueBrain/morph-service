@@ -14,6 +14,8 @@ from django.shortcuts import render_to_response
 
 import tmd
 
+from tmd.Topology.analysis import get_limits, get_persistence_image_data
+
 
 def index(_):
     '''Returns the template index.html'''
@@ -58,9 +60,9 @@ def trainer(groups, neurite_type):
     pers_diagrams = [tmd.methods.get_ph_neuron(j, neurite_type=neurite_type)
                      for group in groups for j in group.neurons]
 
-    xlims, ylims = tmd.analysis.define_limits(pers_diagrams)
+    xlims, ylims = get_limits(pers_diagrams)
     # Generate a persistence image for each diagram
-    pers_images = [tmd.analysis.persistence_image_data(p, xlims=xlims, ylims=ylims)
+    pers_images = [get_persistence_image_data(p, xlims=xlims, ylims=ylims)
                    for p in pers_diagrams]
     # Create the train dataset from the flatten images
     train_dataset = [img.flatten() for img in pers_images]
@@ -75,7 +77,7 @@ def tester(cell_to_classify, neurite_type, xlims, ylims):
     # Get persistence diagram from test cell
     pers2test = tmd.methods.get_ph_neuron(neuron2test, neurite_type=neurite_type)
     # Get persistence image from test cell
-    pers_image2test = tmd.analysis.persistence_image_data(pers2test, xlims=xlims, ylims=ylims)
+    pers_image2test = get_persistence_image_data(pers2test, xlims=xlims, ylims=ylims)
     # Create the test dataset from the flatten image of the test cell
     return pers_image2test.flatten()
 

@@ -11,7 +11,7 @@ WORKDIR /opt/morph-service
 
 ADD uwsgi.ini ./
 COPY dist/* dist/
-RUN pip install --no-cache-dir --process-dependency-links --index-url https://bbpteam.epfl.ch/repository/devpi/simple/ $(ls -t $PWD/dist/*.* | head -n 1)
+RUN pip install --no-cache-dir --index-url https://bbpteam.epfl.ch/repository/devpi/simple/ $(ls -t $PWD/dist/*.* | head -n 1)
 
 EXPOSE 8000
 
