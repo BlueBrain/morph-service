@@ -4,7 +4,7 @@ TEST_MODULES=morph_service/annotations
 
 COVER_PACKAGES=morph_service
 
-PYTHON_PIP_VERSION=pip==9.0.1
+PYTHON_PIP_VERSION=pip==19.0.1
 
 OPTIONAL_FEATURES:='[extension_tests]'
 
