@@ -61,7 +61,7 @@ docker_shell:
 docker_full_build: local_sdist build
 
 local_sdist:
-	python setup.py sdist
+	tox -e py36
 
 build:
 	@echo "building docker image version:$(VERSION)"
