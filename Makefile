@@ -1,6 +1,7 @@
 .PHONY: local_test
 
 VERSION=$(shell python -c 'from morph_service.version import VERSION; print(VERSION)')
+DOCKER_IMAGE=docker-registry-default.ocp.bbp.epfl.ch/bbp-ou-nse/morph-service
 
 local_test:
 	docker run -it --rm -p 8000:8000 morph-service:$(VERSION)
