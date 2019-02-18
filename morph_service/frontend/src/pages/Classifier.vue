@@ -88,10 +88,10 @@ export default {
     };
   },
   methods: {
-    classificationDone(results) { // results = {file, response}
+    classificationDone(results) { // results = {fileSent, response}
       const classification = sanitizeClassificationResults(results.response);
-      const index = findIndex(this.totalClassifications, { placeholder: results.file.name });
-      const graphData = { name: results.file.name, result: classification };
+      const index = findIndex(this.totalClassifications, { placeholder: results.fileSent.name });
+      const graphData = { name: results.fileSent.name, result: classification };
       // replace placeholder for chart
       this.$set(this.totalClassifications, index, graphData);
     },

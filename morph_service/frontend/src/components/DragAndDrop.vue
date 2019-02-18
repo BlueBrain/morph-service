@@ -62,6 +62,11 @@ export default {
       hasFiles: false,
     };
   },
+  computed: {
+    isBlob() {
+      return this.extraParams && this.extraParams.isBlob;
+    },
+  },
   watch: {
     extraParams() {
       this.setParamsRequest();
@@ -81,14 +86,14 @@ export default {
     complete(file, response) {
       /* eslint-disable-next-line no-console */
       console.debug('Webservice completed', file.name);
-      const finalResponse = this.extraParams.isBlob ? file.xhr.response : response;
+      const finalResponse = this.isBlob ? file.xhr.response : response;
       this.$emit('jobFinished', { fileSent: file, response: finalResponse });
     },
     fileAdded(file, xhr) {
       /* eslint-disable no-console,no-param-reassign */
       console.debug('File added', file.status);
 
-      if (this.extraParams.isBlob) {
+      if (this.isBlob) {
         console.debug('File is BLOB');
         // overwrite the function (dropzone does not support binary response)
         xhr.responseType = 'blob';
