@@ -81,7 +81,8 @@ export default {
     complete(file, response) {
       /* eslint-disable-next-line no-console */
       console.debug('Webservice completed', file.name);
-      this.$emit('jobFinished', { fileSent: file, response });
+      const finalResponse = this.extraParams.isBlob ? file.xhr.response : response;
+      this.$emit('jobFinished', { fileSent: file, response: finalResponse });
     },
     fileAdded(file, xhr) {
       /* eslint-disable no-console,no-param-reassign */
@@ -91,10 +92,6 @@ export default {
         console.debug('File is BLOB');
         // overwrite the function (dropzone does not support binary response)
         xhr.responseType = 'blob';
-        xhr.onload = (() => {
-          console.debug('Webservice completed', file.name);
-          this.$emit('jobFinished', { fileSent: file, response: xhr.response });
-        });
       }
       this.$emit('fileAdded', file.name);
       /* eslint-enable no-console no-param-reassign */

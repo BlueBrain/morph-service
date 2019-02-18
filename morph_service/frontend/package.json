@@ -1,6 +1,6 @@
 {
   "name": "morpho_tools_frontend",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "VUE_APP_ANNOTATION_VERSION=$(npm run --silent getAnnotationVersion) vue-cli-service serve",
