@@ -17,7 +17,8 @@ from neurom.apps.annotate import annotate  # pylint: disable=import-error
 from neurom.check.neuron_checks import (has_no_dangling_branch,
                                         has_no_fat_ends, has_no_jumps,
                                         has_no_narrow_start,
-                                        has_no_single_children)
+                                        has_no_single_children,
+                                        has_multifurcation)
 
 install_aliases()
 L = logging.getLogger()
@@ -25,19 +26,26 @@ L = logging.getLogger()
 CHECKERS = {has_no_fat_ends: {"name": "fat end",
                               "label": "Circle3",
                               "color": "Blue"},
+
             partial(has_no_jumps, axis='z'): {"name": "zjump",
                                               "label": "Circle2",
                                               "color": "Green"},
+
             has_no_narrow_start: {"name": "narrow start",
                                   "label": "Circle1",
                                   "color": "Blue"},
+
             has_no_dangling_branch: {"name": "dangling",
                                      "label": "Circle6",
                                      "color": "Magenta"},
 
             has_no_single_children: {"name": "single children",
                                      "label": "Circle7",
-                                     "color": "Red"}}
+                                     "color": "Red"},
+
+            has_multifurcation: {"name": "Multifurcation",
+                                 "label": "Circle8",
+                                 "color": "Yellow"}}
 
 
 def index(_):

@@ -26,6 +26,9 @@
           <span
             class="tag is-light is-medium tooltip"
             data-tooltip="Check if the neuron has sections with only one child section">Single child</span>
+          <span
+            class="tag is-light is-medium tooltip"
+            data-tooltip="Check if the neuron has sections with more than two child sections">Multifurcation</span>
         </div>
       </div>
 
