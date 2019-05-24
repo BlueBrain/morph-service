@@ -1,3 +1,0 @@
-[submodule "afl"]
-	path = afl
-	url = https://github.com/mcarpenter/afl.git
