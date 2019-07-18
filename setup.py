@@ -41,14 +41,14 @@ REQS = ['Django==1.11.6',
 
 TESTS_REQUIRE = [
     'argparse',
-    'pep8==1.4.6',
-    'nose==1.3.0',
-    'django-nose==1.4.5',
-    'nosexcover==1.0.8',
-    'coverage==3.7',
-    'astroid==1.6.3',
-    'pylint==1.8.4',
-    'django-nose==1.4.5',
+    'pep8>=1.4.6',
+    'nose>=1.3.0',
+    'django-nose>=1.4.5',
+    'nosexcover>=1.0.8',
+    'coverage>=3.7',
+    'astroid>=1.6.3',
+    'pylint>=1.8.4',
+    'django-nose>=1.4.5',
 ]
 
 setup(name='morph-service',

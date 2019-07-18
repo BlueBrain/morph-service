@@ -10,6 +10,7 @@ from django.test import Client
 from numpy.testing import assert_array_equal
 
 from morphio import Morphology
+from morph_tool import diff
 
 class SimpleTest(unittest.TestCase):
     '''Annotation test'''
@@ -32,8 +33,7 @@ class SimpleTest(unittest.TestCase):
         with open(swc_name, 'wb') as f:
             f.write(response.content)
 
-        input_morphology = Morphology(input_filename)
-        self.assertEqual(input_morphology, Morphology(swc_name))
+        self.assertFalse(diff(input_filename, swc_name))
 
         with open(os.path.join(os.path.dirname(__file__), 'simple.asc')) as inputf:
             r = self.client.post('/converter/api',
@@ -43,4 +43,4 @@ class SimpleTest(unittest.TestCase):
 
         with open(h5_name, 'wb') as f:
             f.write(r.content)
-        self.assertEqual(input_morphology, Morphology(h5_name))
+        self.assertFalse(diff(input_filename, h5_name))
