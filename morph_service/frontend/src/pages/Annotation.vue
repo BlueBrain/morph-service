@@ -51,13 +51,9 @@
       </div>
     </section>
 
-    <footer class="custom-footer">
-      <div class="content has-text-centered">
-        <p>For more information about the annotation computation see: <a href="https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py">https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py</a></p>
-        <p>Contact: <a href="mailto:bbp-ou-nse@epfl.ch">bbp-ou-nse@epfl.ch</a></p>
-        <p>Version: {{ version }}</p>
-      </div>
-    </footer>
+    <generic-footer>
+      <p>For more information about the annotation computation see: <a href="https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py">https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py</a></p>
+    </generic-footer>
 
   </div>
 </template>
@@ -67,6 +63,7 @@
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import DisplaySummary from '@/components/annotation/DisplaySummary.vue';
 import Title from '@/components/Title.vue';
+import GenericFooter from '@/components/GenericFooter.vue';
 import { getApiUrlEnv } from '@/assets/utils';
 import swal from 'sweetalert2';
 
@@ -76,6 +73,7 @@ export default {
     DragAndDrop,
     DisplaySummary,
     Title,
+    GenericFooter,
   },
   data() {
     return {
@@ -83,7 +81,6 @@ export default {
       annotations: {},
       summary: [],
       getApiUrlEnv,
-      version: process.env.VUE_APP_ANNOTATION_VERSION,
     };
   },
   methods: {

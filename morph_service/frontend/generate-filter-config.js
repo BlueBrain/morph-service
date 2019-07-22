@@ -45,7 +45,7 @@ function createFiltersFn() {
   });
 }
 
-function getAnnotationVersion() {
+function getBackendVersion() {
   readFile('../version.py', 'utf8', (err, data) => {
     if (err) throw err;
     const reg = /.*VERSION.+'(.*)'/;
@@ -55,6 +55,6 @@ function getAnnotationVersion() {
 }
 
 module.exports = {
-  getAnnotationVersion,
+  getBackendVersion,
   createFiltersFn,
 };

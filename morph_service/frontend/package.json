@@ -3,12 +3,12 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "VUE_APP_ANNOTATION_VERSION=$(npm run --silent getAnnotationVersion) vue-cli-service serve",
-    "build": "VUE_APP_ANNOTATION_VERSION=$(npm run --silent getAnnotationVersion) vue-cli-service build",
+    "dev": "VUE_APP_MORPH_SERVICE_VERSION=$(npm run --silent getBackendVersion) vue-cli-service serve",
+    "build": "VUE_APP_MORPH_SERVICE_VERSION=$(npm run --silent getBackendVersion) vue-cli-service build",
     "lint": "vue-cli-service lint",
     "eslint": "eslint",
     "generateFilters": "node -e 'require(\"./generate-filter-config\").createFiltersFn()'",
-    "getAnnotationVersion": "node -e 'require(\"./generate-filter-config\").getAnnotationVersion()'"
+    "getBackendVersion": "node -e 'require(\"./generate-filter-config\").getBackendVersion()'"
   },
   "dependencies": {
     "bulma": "^0.7.1",

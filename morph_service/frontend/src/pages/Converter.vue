@@ -50,13 +50,7 @@
       </transition>
     </section>
 
-    <footer class="custom-footer">
-      <div class="content has-text-centered">
-        <p>For more information about the annotation computation see: <a href="https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py">https://github.com/BlueBrain/NeuroM/blob/master/neurom/check/neuron_checks.py</a></p>
-        <p>Contact: <a href="mailto:bbp-ou-nse@epfl.ch">bbp-ou-nse@epfl.ch</a></p>
-        <p>Version: {{ version }}</p>
-      </div>
-    </footer>
+    <generic-footer/>
 
   </div>
 </template>
@@ -65,6 +59,7 @@
 <script>
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import Exporter from '@/components/converter/Exporter.vue';
+import GenericFooter from '@/components/GenericFooter.vue';
 import Title from '@/components/Title.vue';
 import { getApiUrlEnv } from '@/assets/utils';
 import swal from 'sweetalert2';
@@ -75,6 +70,7 @@ export default {
     DragAndDrop,
     Exporter,
     Title,
+    GenericFooter,
   },
   data() {
     return {
@@ -83,7 +79,6 @@ export default {
       extensions: ['.h5', '.swc', '.asc'],
       outputExtension: null,
       getApiUrlEnv,
-      version: process.env.VUE_APP_ANNOTATION_VERSION,
     };
   },
   computed: {
