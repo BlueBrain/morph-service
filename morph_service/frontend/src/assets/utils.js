@@ -19,9 +19,13 @@ function sanitizeClassificationResults(classificationJson) {
 function save(name, fileContent) {
   // saves the content to a file. Extension is required.
   let contentType = 'text/plain;charset=utf-8';
-  if (name.endsWith('.json')) contentType = 'text/json';
+  let newFileContent = fileContent;
+  if (name.endsWith('.json')) {
+    contentType = 'text/json';
+    newFileContent = JSON.stringify(fileContent, null, 2);
+  }
   if (name.endsWith('.h5')) contentType = 'application/octet-stream';
-  const blob = new Blob([fileContent], { type: contentType });
+  const blob = new Blob([newFileContent], { type: contentType });
   FileSaver.saveAs(blob, name);
 }
 
@@ -51,7 +55,16 @@ function isExtensionAllowed(fileName, extensions) {
   return !!isAllowed;
 }
 
+function changeFileName(originalName, suffix, extension) {
+  const extensionMatches = originalName.match(/\.([^.]*?)(?=\?|#|$)/);
+  if (!extensionMatches || !extensionMatches.length) {
+    throw new Error('file extension unknown');
+  }
+  return originalName.replace(extensionMatches[0], `-${suffix}.${extension}`);
+}
+
 export {
+  changeFileName,
   isExtensionAllowed,
   getApiUrlEnv,
   isDev,

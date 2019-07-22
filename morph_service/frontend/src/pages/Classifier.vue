@@ -103,7 +103,7 @@ export default {
       this.totalClassifications.push({ placeholder: fileName });
     },
     saveResults() {
-      save('Classifications.json', JSON.stringify(this.totalClassifications));
+      save('Classifications.json', this.totalClassifications);
     },
     removeResults() {
       this.totalClassifications = [];

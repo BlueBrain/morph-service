@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { save } from '@/assets/utils';
+import { save, changeFileName } from '@/assets/utils';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 
@@ -84,7 +84,7 @@ export default {
       });
     },
     filenameAnnotations(name) {
-      return name.replace('.asc', '-annotated.asc').replace('.ASC', '-annotated.asc');
+      return changeFileName(name, 'annotated', 'asc');
     },
   },
 };
