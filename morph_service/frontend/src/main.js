@@ -1,9 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
-import Annotation from '@/pages/Annotation.vue';
-import TMD from '@/pages/Classifier.vue';
-import Converter from '@/pages/Converter.vue';
 import Home from '@/pages/Home.vue';
 
 Vue.use(VueRouter);
@@ -20,18 +17,23 @@ const router = new VueRouter({
     },
     {
       path: '/annotations',
-      component: Annotation,
+      component: () => import(/* webpackChunkName: "anotation" */ '@/pages/Annotation.vue'),
       name: 'Annotations',
     },
     {
       path: '/classifier',
-      component: TMD,
+      component: () => import(/* webpackChunkName: "tmd" */ '@/pages/Classifier.vue'),
       name: 'Topological Morphology Descriptor',
     },
     {
       path: '/converter',
-      component: Converter,
+      component: () => import(/* webpackChunkName: "converter" */ '@/pages/Converter.vue'),
       name: 'Morphology converter',
+    },
+    {
+      path: '/validation',
+      component: () => import(/* webpackChunkName: "validation" */ '@/pages/Validation.vue'),
+      name: 'Validation',
     },
   ],
 });

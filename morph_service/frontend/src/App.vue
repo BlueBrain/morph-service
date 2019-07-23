@@ -50,6 +50,7 @@ export default {
         '/classifier': 'TMD Classifier',
         '/annotations': 'Annotations',
         '/converter': 'Converter',
+        '/validation': 'Validation',
       },
     };
   },

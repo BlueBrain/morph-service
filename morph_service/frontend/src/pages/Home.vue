@@ -17,12 +17,17 @@
         to="converter">
         <div class="subtitle">Convert morphologies</div>
       </router-link>
+      <router-link
+        class="card custom-card"
+        to="validation">
+        <div class="subtitle">Validate morphologies</div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Title from '@/components/Title';
+import Title from '@/components/Title.vue';
 
 export default {
   name: 'Home',
