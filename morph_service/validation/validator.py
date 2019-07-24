@@ -1,7 +1,7 @@
 '''A backend that return a validation report for a given morphology'''
 import numpy as np
 import neurom as nm
-from neurom import NeuriteType, load_neuron, iter_sections, iter_segments, iter_neurites
+from neurom import NeuriteType, iter_sections, iter_segments, iter_neurites
 from neurom.check import CheckResult
 from neurom.core.dataformat import COLS
 
@@ -65,9 +65,8 @@ def has_no_multifurcation(neuron):
     return CheckResult(len(bad_ids) == 0, bad_ids)
 
 
-def validation_report(filename):
+def validation_report(neuron):
     '''Return the payload that will be sent back to the user'''
-    neuron = load_neuron(filename)
 
     return {
         'neurites': {

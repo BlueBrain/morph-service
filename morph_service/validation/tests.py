@@ -1,6 +1,7 @@
 '''Test of the validation service'''
 import os
 import json
+import re
 import unittest
 from django.test import Client
 
@@ -55,3 +56,17 @@ class SimpleTest(unittest.TestCase):
                                                       'narrow_start': 2,
                                                       'root_node_jump': 0,
                                                       'z_jumps': 0}})
+
+        with open('morph_service/validation/no-neurites.swc') as inputf:
+            response = self.client.post('/validation/api', {'attachment': inputf})
+        self.assertEqual(response.status_code, 400)
+        data = json.loads(response.content.decode('utf-8'))
+        self.assertTrue(re.match('Error: no-neurites\w*.swc has no neurites', data['error']),
+                        'Error checking: {}'.format(data['error']))
+
+        with open('morph_service/validation/no-soma.swc') as inputf:
+            response = self.client.post('/validation/api', {'attachment': inputf})
+        self.assertEqual(response.status_code, 400)
+        data = json.loads(response.content.decode('utf-8'))
+        self.assertTrue(re.match('Error: no-soma\w*.swc has no soma', data['error']),
+                        'Error checking: {}'.format(data['error']))

@@ -9,6 +9,9 @@ from django.shortcuts import render_to_response
 from future.standard_library import install_aliases
 from requests.utils import unquote
 
+from morphio import MorphioError  # pylint: disable=no-name-in-module
+from neurom import load_neuron
+
 from morph_service.validation.validator import validation_report
 install_aliases()
 L = logging.getLogger()
@@ -35,6 +38,7 @@ def get_neuron_file(request):
     return uploaded_file_url
 
 
+# pylint: disable=too-many-return-statements
 def api(request):
     '''Return a NeuroLucida file with the NeuroM annotations appended at then end'''
     if request.method == 'OPTIONS':
@@ -42,11 +46,25 @@ def api(request):
 
     if request.method == 'POST' and request.FILES:
         try:
-            neuron = get_neuron_file(request)
+            filename = get_neuron_file(request)
         except Exception as exception:  # pylint: disable=broad-except
             L.error(str(exception))
-            return JsonResponse({'error': 'Error while loading the neuron.\n{}'.format(
+            return JsonResponse({'error': 'Error while fetching the neuron file from '
+                                          'the payload.\n{}'.format(exception)}, status=400)
+
+        try:
+            neuron = load_neuron(filename)
+        except MorphioError as exception:
+            return JsonResponse({'error': 'Error while opening the neuron with MorphIO:\n{}'.format(
                 exception)}, status=400)
+
+        if not neuron.neurites:
+            return JsonResponse({'error': 'Error: {} has no neurites'.format(
+                os.path.basename(filename))}, status=400)
+
+        if neuron.soma.points.size == 0:
+            return JsonResponse({'error': 'Error: {} has no soma'.format(
+                os.path.basename(filename))}, status=400)
 
         return JsonResponse(validation_report(neuron))
     return HttpResponse(200)

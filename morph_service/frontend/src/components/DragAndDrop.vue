@@ -26,6 +26,7 @@
   </div>
 </template>
 
+
 <script>
 import vue2Dropzone from 'vue2-dropzone';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
@@ -87,7 +88,7 @@ export default {
       /* eslint-disable-next-line no-console */
       console.debug('Webservice completed', file.name);
       const finalResponse = this.isBlob ? file.xhr.response : response;
-      this.$emit('jobFinished', { fileSent: file, response: finalResponse });
+      this.$emit('job-finished', { fileSent: file, response: finalResponse });
     },
     fileAdded(file, xhr) {
       /* eslint-disable no-console,no-param-reassign */
@@ -98,7 +99,7 @@ export default {
         // overwrite the function (dropzone does not support binary response)
         xhr.responseType = 'blob';
       }
-      this.$emit('fileAdded', file.name);
+      this.$emit('file-added', file.name);
       /* eslint-enable no-console no-param-reassign */
     },
     changeFlagHasFile(file) {
@@ -129,11 +130,12 @@ export default {
     removeAll() {
       this.$refs.vueDropzoneComponent.removeAllFiles(true);
       this.hasFiles = false;
-      this.$emit('removeAll');
+      this.$emit('remove-all');
     },
   },
 };
 </script>
+
 
 <style scoped>
 .customized-color {

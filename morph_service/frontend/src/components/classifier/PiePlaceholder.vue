@@ -1,3 +1,4 @@
+
 <template>
   <div class="pie-placeholder">
     <div>Classifying {{ name }}</div>
@@ -7,12 +8,14 @@
   </div>
 </template>
 
+
 <script>
 export default {
   name: 'PiePlaceholder',
   props: ['name'],
 };
 </script>
+
 
 <style scoped>
   .spin {

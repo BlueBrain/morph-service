@@ -1,7 +1,7 @@
 
 <template>
   <div class="complete-page-height">
-    <Title
+    <title-component
       title="Validation Tool"
       subtitle="Validate your morphologies"
     />
@@ -10,18 +10,18 @@
       <div class="title is-4">Drop one or more files to get a validation JSON report for each of them</div>
 
       <div class="title is-5 custom-text-centered">Upload your morphologies</div>
-      <DragAndDrop
+      <drag-and-drop
         :api-url="getApiUrlEnv() + '/validation/api'"
         :extension="['.h5', '.swc', '.asc']"
-        @jobFinished="validationDone"
-        @fileAdded="createLoadingSpin"
-        @removeAll="removeResults"
+        @job-finished="validationDone"
+        @file-added="createLoadingSpin"
+        @remove-all="removeResults"
       />
       <div
         v-if="hasFiles"
         class="section"
       >
-        <DisplayReports :reports="reports" />
+        <display-reports :reports="reports" />
       </div>
     </section>
 
@@ -34,7 +34,7 @@
 <script>
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import DisplayReports from '@/components/validation/DisplayReports.vue';
-import Title from '@/components/Title.vue';
+import TitleComponent from '@/components/TitleComponent.vue';
 import GenericFooter from '@/components/GenericFooter.vue';
 import { getApiUrlEnv } from '@/assets/utils';
 import swal from 'sweetalert2';
@@ -44,7 +44,7 @@ export default {
   components: {
     DragAndDrop,
     DisplayReports,
-    Title,
+    TitleComponent,
     GenericFooter,
   },
   data() {

@@ -1,18 +1,18 @@
 
 <template>
   <div>
-    <Title title="Classification of neurons">
+    <title-component title="Classification of neurons">
       <h2 class="subtitle">
-      <span>Classification using</span>
-      <a href="https://link.springer.com/article/10.1007/s12021-017-9341-1">
-      Topological Morphology Descriptor (TMD)
-      <i class="fas fa-external-link-alt"></i>
-      </a>
+        <span>Classification using</span>
+        <a href="https://link.springer.com/article/10.1007/s12021-017-9341-1">
+          Topological Morphology Descriptor (TMD)
+          <i class="fas fa-external-link-alt"></i>
+        </a>
       </h2>
-    </Title>
+    </title-component>
 
     <section class="section">
-      <MorphFilter @filtersOk="enableDD"/>
+      <morph-filter @filtersOk="enableDD"/>
 
       <div class="spaced-bottom"/>
 
@@ -22,13 +22,13 @@
             <span class="circle-number">4</span>
             <span class="subtitle is-3">Upload your morphologies:</span>
           </div>
-          <DragAndDrop
+          <drag-and-drop
             :extra-params="extraParams"
             :api-url="getApiUrlEnv() + '/classifier/api'"
             :extension="['.h5', '.swc']"
-            @jobFinished="classificationDone"
-            @fileAdded="createLoadingSpin"
-            @removeAll="removeResults"
+            @job-finished="classificationDone"
+            @file-added="createLoadingSpin"
+            @remove-all="removeResults"
           />
           <div class="columns is-multiline">
             <div
@@ -36,11 +36,11 @@
               :key="chart.name"
               class="column is-one-third"
             >
-              <PieChart
+              <pie-chart
                 v-if="chart.name"
                 :classification="chart"
               />
-              <PiePlaceholder
+              <pie-placeholder
                 v-if="chart.placeholder"
                 :name="chart.placeholder"
               />
@@ -65,7 +65,7 @@
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import PieChart from '@/components/classifier/PieChart.vue';
 import PiePlaceholder from '@/components/classifier/PiePlaceholder.vue';
-import Title from '@/components/Title.vue';
+import TitleComponent from '@/components/TitleComponent.vue';
 import MorphFilter from '@/components/classifier/MorphFilter.vue';
 import findIndex from 'lodash/findIndex';
 import { save, sanitizeClassificationResults, getApiUrlEnv } from '@/assets/utils';
@@ -74,7 +74,7 @@ export default {
   name: 'Classifier',
   components: {
     DragAndDrop,
-    Title,
+    TitleComponent,
     PieChart,
     MorphFilter,
     PiePlaceholder,

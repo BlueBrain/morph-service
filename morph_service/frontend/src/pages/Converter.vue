@@ -1,7 +1,7 @@
 
 <template>
   <div class="complete-page-height">
-    <Title
+    <title-component
       title="Converter"
       subtitle="Convert your morphologies to another format"
     />
@@ -31,20 +31,20 @@
             <span class="circle-number">2</span>
             <span class="title is-5">Upload your morphologies</span>
           </div>
-          <DragAndDrop
+          <drag-and-drop
             ref="dragAndDrop"
             :api-url="getApiUrlEnv() + '/converter/api'"
             :extension="extensions"
             :extra-params="extraParams"
-            @jobFinished="conversionDone"
-            @fileAdded="createLoadingSpin"
-            @removeAll="removeResults"
+            @job-finished="conversionDone"
+            @file-added="createLoadingSpin"
+            @remove-all="removeResults"
           />
           <div
             v-if="hasFiles"
             class="section"
           >
-            <Exporter :converted-morphology="convertedMorphology" />
+            <exporter :converted-morphology="convertedMorphology" />
           </div>
         </div>
       </transition>
@@ -60,7 +60,7 @@
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import Exporter from '@/components/converter/Exporter.vue';
 import GenericFooter from '@/components/GenericFooter.vue';
-import Title from '@/components/Title.vue';
+import TitleComponent from '@/components/TitleComponent.vue';
 import { getApiUrlEnv } from '@/assets/utils';
 import swal from 'sweetalert2';
 
@@ -69,7 +69,7 @@ export default {
   components: {
     DragAndDrop,
     Exporter,
-    Title,
+    TitleComponent,
     GenericFooter,
   },
   data() {

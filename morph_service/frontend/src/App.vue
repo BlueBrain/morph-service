@@ -4,7 +4,8 @@
     <nav
       class="navbar darker-blue"
       role="navigation"
-      aria-label="main navigation">
+      aria-label="main navigation"
+    >
       <div class="navbar-brand">
         <a
           role="button"
@@ -31,9 +32,12 @@
       </div>
 
     </nav>
+
     <router-view/>
+
   </div>
 </template>
+
 
 <script>
 import 'bulma/css/bulma.css';

@@ -15,6 +15,7 @@
   </div>
 </template>
 
+
 <script>
 import { save } from '@/assets/utils';
 import FileSaver from 'file-saver';
@@ -58,6 +59,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
   .custom-spaced .more-spaced {

@@ -5,12 +5,13 @@
     <transition name="fade">
       <section
         v-if="!classifier.isLoading"
-        class="column is-narrow">
+        class="column is-narrow"
+      >
         <div class="flex-centered">
           <span class="circle-number">1</span>
           <span class="subtitle is-3">Choose classifier:</span>
         </div>
-        <ModelSelect
+        <model-select
           :options="classifier.list"
           :is-error="!classifier.selected"
           v-model="classifier.selected"
@@ -22,7 +23,8 @@
     <transition name="fade">
       <section
         v-if="classifier.selected"
-        class="column is-narrow">
+        class="column is-narrow"
+      >
         <div class="flex-centered">
           <span class="circle-number">2</span>
           <span
@@ -67,6 +69,7 @@
 
   </div>
 </template>
+
 
 <script>
 import map from 'lodash/map';
@@ -143,6 +146,7 @@ export default {
   },
 };
 </script>
+
 
 <style>
   .ui.fluid.dropdown input {

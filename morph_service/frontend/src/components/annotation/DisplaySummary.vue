@@ -14,7 +14,8 @@
             <ul>
               <li
                 v-for="(key, item) in element.summary"
-                :key="element.name + item">
+                :key="element.name + item"
+              >
                 <span>{{ item }} : {{ key }}</span>
               </li>
             </ul>
@@ -27,13 +28,15 @@
       class="buttons is-centered custom-spaced">
       <button
         class="button button-with-icon is-info is-medium more-spaced"
-        @click="exportSummary">
+        @click="exportSummary"
+      >
         <span>Summary</span>
         <i class="fas fa-download"/>
       </button>
       <button
         class="button button-with-icon is-info is-medium"
-        @click="exportAnnotations">
+        @click="exportAnnotations"
+      >
         <span>Annotated file(s)</span>
         <i class="fas fa-download"/>
       </button>
@@ -41,6 +44,7 @@
 
   </div>
 </template>
+
 
 <script>
 import { save, changeFileName } from '@/assets/utils';
@@ -89,6 +93,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
   .custom-spaced .more-spaced {

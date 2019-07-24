@@ -3,7 +3,8 @@
   <div class="pie-custom">
     <div
       id="canvas-holder"
-      class="pie-container">
+      class="pie-container"
+    >
       <canvas id="chart-area"/>
       <div
         id="chartjs-tooltip"
@@ -14,6 +15,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import Chart from 'chart.js';
@@ -137,6 +139,7 @@ export default {
   },
 };
 </script>
+
 
 <style>
   .pie-custom .pie-container {

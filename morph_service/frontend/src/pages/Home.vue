@@ -1,41 +1,48 @@
+
 <template>
   <div>
-    <Title title="Select one tool"/>
+    <title-component title="Select one tool"/>
     <div class="section custom-card-container">
       <router-link
         class="card custom-card"
-        to="classifier">
+        to="classifier"
+      >
         <div class="subtitle">Classify morphologies using Topological Morphology Descriptor (TMD)</div>
       </router-link>
       <router-link
         class="card custom-card"
-        to="annotations">
+        to="annotations"
+      >
         <div class="subtitle">Annotate morphologies</div>
       </router-link>
       <router-link
         class="card custom-card"
-        to="converter">
+        to="converter"
+      >
         <div class="subtitle">Convert morphologies</div>
       </router-link>
       <router-link
         class="card custom-card"
-        to="validation">
+        to="validation"
+      >
         <div class="subtitle">Validate morphologies</div>
       </router-link>
     </div>
   </div>
 </template>
 
+
 <script>
-import Title from '@/components/Title.vue';
+import TitleComponent from '@/components/TitleComponent.vue';
 
 export default {
   name: 'Home',
   components: {
-    Title,
+    TitleComponent,
   },
 };
 </script>
+
 
 <style scoped>
   .custom-card {
