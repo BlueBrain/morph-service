@@ -16,10 +16,10 @@
 
 
 <script>
-import { save, changeFileName } from '@/assets/utils';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 import get from 'lodash/get';
+import { save, changeFileName } from '@/assets/utils';
 
 export default {
   props: ['reports'],

@@ -30,8 +30,8 @@
 <script>
 import vue2Dropzone from 'vue2-dropzone';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
-import { isExtensionAllowed } from '@/assets/utils';
 import swal from 'sweetalert2';
+import { isExtensionAllowed } from '@/assets/utils';
 
 export default {
   name: 'DragAndDrop',
@@ -123,7 +123,7 @@ export default {
       swal({
         type: 'error',
         title: 'There was an error',
-        text: message,
+        text: message.error || message,
       });
       throw Error(message);
     },

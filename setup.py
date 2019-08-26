@@ -30,7 +30,7 @@ def update_package_data(distribution):
     build_py_.finalize_options()
 
 
-REQS = ['Django==1.11.6',
+REQS = ['Django==1.11.17',
         'django-cors-middleware==1.3.1',
         'morph-tool[all]>=0.0.3',
         'sklearn',

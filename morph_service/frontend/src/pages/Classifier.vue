@@ -62,12 +62,12 @@
 
 
 <script>
+import findIndex from 'lodash/findIndex';
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import PieChart from '@/components/classifier/PieChart.vue';
 import PiePlaceholder from '@/components/classifier/PiePlaceholder.vue';
 import TitleComponent from '@/components/TitleComponent.vue';
 import MorphFilter from '@/components/classifier/MorphFilter.vue';
-import findIndex from 'lodash/findIndex';
 import { save, sanitizeClassificationResults, getApiUrlEnv } from '@/assets/utils';
 
 export default {

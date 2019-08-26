@@ -1,7 +1,7 @@
 
 import forEach from 'lodash/forEach';
-import config from '@/assets/config.json';
 import FileSaver from 'file-saver';
+import config from '@/assets/config.json';
 
 function getMorphologyName(fullString) {
   return fullString.split('/').pop();

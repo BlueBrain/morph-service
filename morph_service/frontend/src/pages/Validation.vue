@@ -32,12 +32,12 @@
 
 
 <script>
+import swal from 'sweetalert2';
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import DisplayReports from '@/components/validation/DisplayReports.vue';
 import TitleComponent from '@/components/TitleComponent.vue';
 import GenericFooter from '@/components/GenericFooter.vue';
 import { getApiUrlEnv } from '@/assets/utils';
-import swal from 'sweetalert2';
 
 export default {
   name: 'Validation',

@@ -17,9 +17,9 @@
 
 
 <script>
-import { save } from '@/assets/utils';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
+import { save } from '@/assets/utils';
 
 export default {
   props: ['convertedMorphology'],

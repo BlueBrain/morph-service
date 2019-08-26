@@ -73,8 +73,8 @@
 
 <script>
 import map from 'lodash/map';
-import filterConfig from '@/assets/filter-config.json';
 import { MultiSelect, ModelSelect } from 'vue-search-select';
+import filterConfig from '@/assets/filter-config.json';
 
 export default {
   name: 'MorphFilter',

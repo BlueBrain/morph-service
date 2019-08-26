@@ -47,9 +47,9 @@
 
 
 <script>
-import { save, changeFileName } from '@/assets/utils';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
+import { save, changeFileName } from '@/assets/utils';
 
 export default {
   props: ['summaryArray', 'annotations'],

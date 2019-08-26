@@ -57,12 +57,12 @@
 
 
 <script>
+import swal from 'sweetalert2';
 import DragAndDrop from '@/components/DragAndDrop.vue';
 import Exporter from '@/components/converter/Exporter.vue';
 import GenericFooter from '@/components/GenericFooter.vue';
 import TitleComponent from '@/components/TitleComponent.vue';
 import { getApiUrlEnv } from '@/assets/utils';
-import swal from 'sweetalert2';
 
 export default {
   name: 'Converter',

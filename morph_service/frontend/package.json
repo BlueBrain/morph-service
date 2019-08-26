@@ -1,6 +1,6 @@
 {
   "name": "morpho_tools_frontend",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "dev": "VUE_APP_MORPH_SERVICE_VERSION=$(npm run --silent getBackendVersion) vue-cli-service serve",
