@@ -36,6 +36,7 @@ REQS = ['Django==1.11.17',
         'sklearn',
         'neurom @ git+https://git@github.com/wizmer/NeuroM.git@morphio#egg=neurom-2.0.0',
         'tmd>=2.0.3',
+        'morphio>=2.2.1',
         'requests==2.18.4',
         'livereload==2.5.1']
 
