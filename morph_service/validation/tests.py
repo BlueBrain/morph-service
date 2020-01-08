@@ -27,6 +27,7 @@ class SimpleTest(unittest.TestCase):
         '''Issue a GET request.'''
         with open('morph_service/annotations/sample.asc') as inputf:
             response = self.client.post('/validation/api', {'attachment': inputf})
+        self.maxDiff = None
         self._test_validation(response, {'additional_features': {'max_branch_order': 1,
                                                                  'max_section_length': 65.94427490234375,
                                                                  'total_section_length': 83.94427490234375},
@@ -53,7 +54,7 @@ class SimpleTest(unittest.TestCase):
                                                       'fat_ends': 0,
                                                       'has_all_nonzero_segment_lengths': 0,
                                                       'narrow_neurite_section': 0,
-                                                      'narrow_start': 2,
+                                                      'narrow_start': 3,
                                                       'root_node_jump': 0,
                                                       'z_jumps': 0}})
 

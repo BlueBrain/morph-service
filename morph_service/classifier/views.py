@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+import importlib
 import json
 import os
 import tempfile
@@ -14,6 +15,8 @@ from django.shortcuts import render_to_response
 
 import tmd
 
+from neurom import load_neuron
+from neurom.check.neuron_checks import has_apical_dendrite
 from tmd.Topology.analysis import get_limits, get_persistence_image_data
 
 
@@ -33,7 +36,6 @@ def train(mod, classifier, data, labels, **kwargs):
        with data and targets.
        Returns a fited classifier.
     '''
-    import importlib
 
     clas_mod = importlib.import_module('sklearn.' + mod)
     clf = getattr(clas_mod, classifier)()
@@ -143,8 +145,16 @@ def api(request):
             'L5_UPC', 'L5_TPC_A', 'L5_TPC_B', 'L5_TPC_C']
         selected_classifier = request.POST['classifier'] or 'LinearDiscriminantAnalysis'
         classifier_index = LIST_OF_CLASSIFIERS.index(selected_classifier)
+
+        filename = os.path.join(tmp, filename)
+        if not has_apical_dendrite(load_neuron(filename)):
+            return JsonResponse({
+                'error': ('This neuron has no apical dendrite, it cannot be classified.\n'
+                          'This classifier should only be used with pyramidal cells')
+            }, status=400)
+
         result = classify_cell_in_groups(list_of_groups=morphology_types,
-                                         cell_to_classify=os.path.join(tmp, filename),
+                                         cell_to_classify=filename,
                                          neurite_type='apical',
                                          classifier_module=LIST_OF_MODULES[classifier_index],
                                          classifier_method=LIST_OF_CLASSIFIERS[classifier_index],
