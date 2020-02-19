@@ -48,7 +48,7 @@ def api(request):
             output_extension = request.POST.get('output_extension')
             output_filename = os.path.join('/tmp',
                                            filename_no_ext + output_extension)
-            converter.run(uploaded_file_url, output_filename)
+            converter.convert(uploaded_file_url, output_filename)
         except Exception as exception:  # pylint: disable=broad-except
             L.error(str(exception))
             return JsonResponse({'error': 'Error while loading the neuron.\n{}'.format(

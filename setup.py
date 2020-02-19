@@ -32,8 +32,9 @@ def update_package_data(distribution):
 
 REQS = ['Django==1.11.17',
         'django-cors-middleware==1.3.1',
-        'morph-tool[all]>=0.0.3',
+        'morph-tool[all]>=0.2.0',
         'sklearn',
+        # This is the mut_morphio branch but without pyproject.toml that makes jenkins fail
         'neurom @ git+https://git@github.com/wizmer/NeuroM.git@rm-pyproject#egg=neurom-2.0.0',
         'tmd>=2.0.3',
         'morphio>=2.2.1',

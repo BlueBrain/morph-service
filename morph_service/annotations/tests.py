@@ -25,7 +25,7 @@ class SimpleTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content.decode('utf-8'))
         file_content = ''.join(data['file'])
-        neuron = load_neuron(('asc', file_content))
+        neuron = load_neuron(file_content, reader='asc')
         self.assertEqual(len(neuron.neurites), 2)
 
         got_annotations = '\n'.join(file_content.split('\n')[-7:])
@@ -71,7 +71,6 @@ class SimpleTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content.decode('utf-8'))
         file_content = ''.join(data['file'])
-        neuron = load_neuron(('asc', file_content))
         annotation = """(Circle8   ; MUK_ANNOTATION
     (Color Yellow)   ; MUK_ANNOTATION
     (Name "Multifurcation")   ; MUK_ANNOTATION

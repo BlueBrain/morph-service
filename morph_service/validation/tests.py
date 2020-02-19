@@ -46,7 +46,7 @@ class SimpleTest(unittest.TestCase):
             response = self.client.post('/validation/api', {'attachment': inputf})
         self._test_validation(response, {'additional_features': {'max_branch_order': 10,
                                                                  'max_section_length': 11.758281707763672,
-                                                                 'total_section_length': 840.6852240562439},
+                                                                 'total_section_length': 840.6852231025696},
                                          'axons': {'number_of_axons': 1},
                                          'bifurcations': {'multifurcation': 0, 'single_child': 0},
                                          'dendrites': {'number_of_dendritic_trees_steaming_from_the_soma': 3},
@@ -54,7 +54,7 @@ class SimpleTest(unittest.TestCase):
                                                       'fat_ends': 0,
                                                       'has_all_nonzero_segment_lengths': 0,
                                                       'narrow_neurite_section': 0,
-                                                      'narrow_start': 3,
+                                                      'narrow_start': 2,
                                                       'root_node_jump': 0,
                                                       'z_jumps': 0}})
 
