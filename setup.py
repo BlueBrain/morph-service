@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """ Morph service module """
-from subprocess import call
+from subprocess import check_call
 from setuptools import find_packages, setup
 from setuptools.command import sdist
 from morph_service.version import VERSION
@@ -13,8 +13,8 @@ def js_prerelease(command):
 
         def run(self):
             '''The run function'''
-            call('cd morph_service/frontend && npm i && npm run build'
-                 ' && cp -RT dist ../static', shell=True)
+            check_call('cd morph_service/frontend && npm i && npm run build'
+                       ' && cp -RT dist ../static', shell=True)
 
             command.run(self)
             update_package_data(self.distribution)
