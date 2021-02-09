@@ -7,17 +7,16 @@ import json
 import os
 import tempfile
 import pkg_resources
-
 import numpy as np
-from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render_to_response
 
 import tmd
-
 from neurom import load_neuron
 from neurom.check.neuron_checks import has_apical_dendrite
 from tmd.Topology.analysis import get_limits, get_persistence_image_data
+
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render_to_response
 
 
 def index(_):
@@ -101,8 +100,8 @@ def percentages(groups, predict_labels, labels):
 def generate_groups(list_of_groups):
     '''Morpholog groups'''
     base = pkg_resources.resource_filename('morph_service', 'classifier/training_sample')
-    return [tmd.io.load_population(os.path.join(base, l))
-            for l in list_of_groups]
+    return [tmd.io.load_population(os.path.join(base, elem))
+            for elem in list_of_groups]
 
 
 # pylint: disable=too-many-arguments

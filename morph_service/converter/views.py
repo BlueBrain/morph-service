@@ -6,14 +6,13 @@ import logging
 import os
 import tempfile
 from io import open  # pylint: disable=redefined-builtin
+from morph_tool import converter
+from requests.utils import unquote
 
 from django.core.files.storage import FileSystemStorage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render_to_response
-from morph_tool import converter
-# pylint: disable=import-error
-from requests.utils import unquote
 
 L = logging.getLogger()
 
@@ -27,7 +26,7 @@ class MyJsonResponse(JsonResponse):
     '''JSon response that handles binary data'''
     def __init__(self, data, encoder=DjangoJSONEncoder, safe=True, **kwargs):
         json_dumps_params = dict(ensure_ascii=False)
-        super(MyJsonResponse, self).__init__(data, encoder, safe, json_dumps_params, **kwargs)
+        super().__init__(data, encoder, safe, json_dumps_params, **kwargs)
 
 
 def api(request):

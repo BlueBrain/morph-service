@@ -4,21 +4,21 @@ import os
 import tempfile
 from functools import partial
 from io import open  # pylint: disable=redefined-builtin
-
-from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render_to_response
 from future.standard_library import install_aliases
 from requests.utils import unquote
 
-import neurom  # pylint: disable=import-error
-from neurom.apps.annotate import annotate  # pylint: disable=import-error
-# pylint: disable=import-error
+import neurom
+from neurom.apps.annotate import annotate
 from neurom.check.neuron_checks import (has_no_dangling_branch,
                                         has_no_fat_ends, has_no_jumps,
                                         has_no_narrow_start,
                                         has_no_single_children,
                                         has_multifurcation)
+
+from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render_to_response
+
 
 install_aliases()
 L = logging.getLogger()

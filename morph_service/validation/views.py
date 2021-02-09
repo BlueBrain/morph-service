@@ -2,17 +2,18 @@
 import logging
 import os
 import tempfile
-
-from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render_to_response
 from future.standard_library import install_aliases
 from requests.utils import unquote
 
 from morphio import MorphioError  # pylint: disable=no-name-in-module
 from neurom import load_neuron
 
+from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render_to_response
+
 from morph_service.validation.validator import validation_report
+
 install_aliases()
 L = logging.getLogger()
 

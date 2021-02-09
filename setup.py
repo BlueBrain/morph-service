@@ -14,7 +14,7 @@ def js_prerelease(command):
         def run(self):
             '''The run function'''
             check_call('cd morph_service/frontend && npm i && npm run build'
-                       ' && cp -RT dist ../static', shell=True)
+                       ' && cp -R dist ../static', shell=True)
 
             command.run(self)
             update_package_data(self.distribution)
@@ -31,14 +31,14 @@ def update_package_data(distribution):
 
 
 REQS = ['Django==1.11.17',
-        'django-cors-middleware==1.3.1',
-        'morph-tool[all]>=0.2.0',
+        'django-cors-middleware>=1.3.1',
+        'morph-tool>=2.3.0',
         'sklearn',
-        'neurom @ git+https://git@github.com/BlueBrain/NeuroM.git@mut_morphio#egg=neurom-2.0.0',
+        'neurom>=2.0.1.dev6',
         'tmd>=2.0.3',
-        'morphio>=2.2.1',
-        'requests==2.18.4',
-        'livereload==2.5.1']
+        'morphio>=2.6.1',
+        'requests>=2.18.4',
+        'livereload>=2.5.1']
 
 TESTS_REQUIRE = [
     'argparse',

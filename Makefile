@@ -9,7 +9,12 @@ local_test:
 docker_shell:
 	docker run -it --rm morph-service:$(VERSION) /bin/bash
 
-docker_full_build: local_sdist build
+clean:
+	rm -drf morph_service/frontend/dist
+	rm -drf morph_service/static
+	rm -drf .tox/dist
+
+docker_full_build: clean local_sdist build
 
 local_sdist:
 	which python

@@ -1,6 +1,7 @@
-morph_service/frontend/node_modules/
-morph_service/frontend/dist/
-venv/
-static/
-.morph-service-env/
-ContinuousIntegration/
+
+# Ignore everything
+**
+
+# Allow files and directories
+!uwsgi.ini
+!.tox/dist/**
