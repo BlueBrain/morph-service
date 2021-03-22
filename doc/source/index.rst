@@ -40,6 +40,7 @@ Running the server
 
 .. code:: bash
 
+    cd morph_service
     python3 manage.py runserver
 
 Test full docker
@@ -67,11 +68,12 @@ https://ocp.bbp.epfl.ch:8443/console/project/bbp-ou-nse/browse/dc/morph-service?
 On this page you can also force the redeployement of a given image by
 clicking the "Deploy" button at the top right of the page.
 
-Live logs can be found at this address:
-https://ocp.bbp.epfl.ch:8443/console/project/bbp-ou-nse/browse/pods/morph-service-46-2nt8x?tab=logs
+Logs and debugging terminal can be found at:
 
-You can debug the running pod at:
-https://ocp.bbp.epfl.ch:8443/console/project/bbp-ou-nse/browse/pods/morph-service-46-2nt8x?tab=terminal
+- Go to the `deployment <https://ocp.bbp.epfl.ch:8443/console/project/bbp-ou-nse/browse/dc/morph-service?tab=history>`_ 
+- Select the latest deployment
+- Scroll down until Pods
+- Click on the name of the pod
+- Click on Terminal tab (for debugging) or Logs for the latest logs
 
-I know there is a way to rollback to the previous image. Currently a single image is deployed so there is no way to test this functionality I believe.
-But when there will be new versions deployed, I think there will be a button at the top right of the page to rollback to older version.
+If after the new deployment you want to rollback, just go to the previous deployment and under Status you will see a "Roll Back" button.
