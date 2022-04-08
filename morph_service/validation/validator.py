@@ -21,7 +21,7 @@ def has_no_radical_diameter_changes(neuron, max_change=10):
         CheckResult with result. result.info contains a list of (section Id, position)
         where radical diameter changes happen
     '''
-    bad_ids = list()
+    bad_ids = []
     for section in iter_sections(neuron):
         for p0, p1 in iter_segments(section):  # pylint: disable=invalid-name
             length = np.linalg.norm(p0[COLS.XYZ] - p1[COLS.XYZ])
@@ -41,7 +41,7 @@ def has_no_single_child(neuron):
         for each section with a single child
     '''
 
-    bad_ids = list()
+    bad_ids = []
     for section in iter_sections(neuron):
         if len(section.children) == 1:
             bad_ids.append((section.id, section.points[-1, COLS.XYZ]))
@@ -58,7 +58,7 @@ def has_no_multifurcation(neuron):
         for each section with more than 2 children
     '''
 
-    bad_ids = list()
+    bad_ids = []
     for section in iter_sections(neuron):
         if len(section.children) > 2:
             bad_ids.append((section.id, section.points[-1, COLS.XYZ]))

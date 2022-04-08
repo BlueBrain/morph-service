@@ -148,3 +148,5 @@ CORS_ALLOW_HEADERS = (
     'Cache-Control',
     'X-Requested-With',
 )
+
+DEFAULT_CHARSET = 'utf-8'

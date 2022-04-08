@@ -50,8 +50,8 @@ def api(request):
             converter.convert(uploaded_file_url, output_filename)
         except Exception as exception:  # pylint: disable=broad-except
             L.error(str(exception))
-            return JsonResponse({'error': 'Error while loading the neuron.\n{}'.format(
-                exception)}, status=400)
+            return JsonResponse({'error': 'Error while loading the '
+                                 f'neuron.\n{exception}'}, status=400)
 
         filename = filename_no_ext + output_extension
         if output_extension == '.h5':

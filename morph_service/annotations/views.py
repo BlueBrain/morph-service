@@ -78,14 +78,14 @@ def api(request):
                                 status=400)
         except Exception as exception:  # pylint: disable=broad-except
             L.error(str(exception))
-            return JsonResponse({'error': 'Error while loading the neuron.\n{}'.format(
-                exception)}, status=400)
+            return JsonResponse({'error': f'Error while loading the neuron.\n{exception}'},
+                                status=400)
 
         results = [checker(neuron) for checker in CHECKERS]
         annotations = annotate(results, CHECKERS.values())
 
         if annotations:
-            with open(uploaded_file_url, 'a') as outf:
+            with open(uploaded_file_url, 'a', encoding='utf-8') as outf:
                 outf.write(annotations)
 
         with open(uploaded_file_url, encoding='utf-8', errors='replace') as outf:

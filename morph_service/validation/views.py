@@ -51,21 +51,21 @@ def api(request):
         except Exception as exception:  # pylint: disable=broad-except
             L.error(str(exception))
             return JsonResponse({'error': 'Error while fetching the neuron file from '
-                                          'the payload.\n{}'.format(exception)}, status=400)
+                                          f'the payload.\n{exception}'}, status=400)
 
         try:
             neuron = load_neuron(filename)
         except MorphioError as exception:
-            return JsonResponse({'error': 'Error while opening the neuron with MorphIO:\n{}'.format(
-                exception)}, status=400)
+            return JsonResponse({'error': 'Error while opening the neuron with '
+                                 f'MorphIO:\n{exception}'}, status=400)
 
         if not neuron.neurites:
-            return JsonResponse({'error': 'Error: {} has no neurites'.format(
-                os.path.basename(filename))}, status=400)
+            return JsonResponse({'error': f'Error: {os.path.basename(filename)} '
+                                 'has no neurites'}, status=400)
 
         if neuron.soma.points.size == 0:
-            return JsonResponse({'error': 'Error: {} has no soma'.format(
-                os.path.basename(filename))}, status=400)
+            return JsonResponse({'error': f'Error: {os.path.basename(filename)} '
+                                 'has no soma'}, status=400)
 
         return JsonResponse(validation_report(neuron))
     return HttpResponse(200)
