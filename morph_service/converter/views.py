@@ -25,7 +25,7 @@ def index(_):
 class MyJsonResponse(JsonResponse):
     '''JSon response that handles binary data'''
     def __init__(self, data, encoder=DjangoJSONEncoder, safe=True, **kwargs):
-        json_dumps_params = dict(ensure_ascii=False)
+        json_dumps_params = {"ensure_ascii": False, }
         super().__init__(data, encoder, safe, json_dumps_params, **kwargs)
 
 
