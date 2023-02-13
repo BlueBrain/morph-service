@@ -33,7 +33,7 @@ def update_package_data(distribution):
 REQS = ['Django==1.11.17',
         'django-cors-middleware==1.5.0',
         'morph-tool==2.3.0',
-        'sklearn',
+        'sklearn==0.0',
         'neurom==2.0.1.dev6',
         'tmd==2.0.9',
         'morphio==2.6.1',
